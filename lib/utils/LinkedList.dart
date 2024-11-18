@@ -3,7 +3,7 @@ import 'dart:io';
 //I am reusing old C++ code for this LinkedList lol
 //TODO: Write documentation
 class Node<T> {
-  final T value;
+  T value;
   Node? next;
   Node(this.value);
 }
