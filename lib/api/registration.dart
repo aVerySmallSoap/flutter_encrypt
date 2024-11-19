@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'users.dart';
+import 'database.dart';
 
 //TODO: Convert into API calls that returns something
 class Registration {
@@ -8,12 +8,12 @@ class Registration {
       print("Incomplete fields!");
       return false;
     }
-    if (Users.table.containsKey(username)) {
+    if (Database.table.containsKey(username)) {
       print("Username is already taken!");
       return false;
     }
-    Users.add(username, password);
-    Users.writeToDB();
+    Database.add(username, password);
+    Database.writeToDB();
     return true;
   }
 }

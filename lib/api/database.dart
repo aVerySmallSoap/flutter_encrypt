@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:convert';
 
 //TODO: Convert into API calls that returns something
-class Users {
+class Database {
   static final File _file = File('${Directory.current.path}/lib/db/users.json');
   static List<dynamic>? _users = [];
   static LinkedHashMap<String, Map<String, dynamic>> table = LinkedHashMap();

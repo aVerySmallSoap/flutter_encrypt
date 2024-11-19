@@ -1,12 +1,12 @@
-import 'users.dart';
+import 'database.dart';
 
 //TODO: Convert into API calls that returns something
 class Login {
   // Unpack all the data from json here
   static bool login(String username, String password) {
-    if (Users.table.containsKey(username)) {
+    if (Database.table.containsKey(username)) {
       bool logged = false;
-      Users.table.forEach((k, v) {
+      Database.table.forEach((k, v) {
         if (username == k && password == v["password"]) {
           logged = true;
           return;
