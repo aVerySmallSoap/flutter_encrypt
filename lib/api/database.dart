@@ -1,7 +1,6 @@
 import 'dart:collection';
 import 'dart:io';
 import 'dart:convert';
-
 import 'package:test_app/api/user.dart';
 
 //TODO: Convert into API calls that returns something
