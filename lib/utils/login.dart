@@ -5,19 +5,14 @@ class Login {
   static bool login(String username, String password) {
     if (Users.table.containsKey(username)) {
       bool logged = false;
-      bool incorrect = false;
       Users.table.forEach((k, v) {
         if (username == k && password == v["password"]) {
           logged = true;
           return;
-        } else {
-          incorrect = true;
-          return;
         }
       });
-      if (incorrect) {
+      if (!logged) {
         print("Incorrect password!");
-        incorrect = false;
         return false;
       }
       return logged;
