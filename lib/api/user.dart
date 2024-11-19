@@ -1,10 +1,18 @@
 class User {
   String? username;
+  final String? _password;
   DateTime? dateRegistered;
   List<String> history = [];
 
+  User(String this.username, String this._password,
+      DateTime this.dateRegistered);
+
   String? getUsername() {
     return username;
+  }
+
+  String? getPassword() {
+    return _password;
   }
 
   DateTime? getRegistrationDate() {
@@ -40,7 +48,7 @@ class User {
   }
 
   bool clearHistory() {
-    if (!history.isEmpty) {
+    if (history.isNotEmpty) {
       print("cleared $username's history!");
       history.clear();
       return true;

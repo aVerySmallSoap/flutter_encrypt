@@ -4,5 +4,6 @@ import 'package:test_app/api/registration.dart';
 
 void main() async {
   Database.init();
-  print(Login.login('', ''));
+  print(Login.login('tas', 'p'));
+  // print(await Registration.register('tas', 'p'));
 }
