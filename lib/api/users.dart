@@ -2,13 +2,15 @@ import 'dart:collection';
 import 'dart:io';
 import 'dart:convert';
 
+//TODO: Convert into API calls that returns something
 class Users {
   static final File _file = File('${Directory.current.path}/lib/db/users.json');
   static List<dynamic>? _users = [];
   static LinkedHashMap<String, Map<String, dynamic>> table = LinkedHashMap();
 
-  /// Always call the initialize function when starting the app to load users
-  static void init() async {
+  /// Initializes the DB into the User class for in-client persistence.
+  /// Always call the initialize function when starting the app
+  static void init() {
     String json = _file.readAsStringSync();
     if (json != "") {
       _users = jsonDecode(json);
@@ -27,11 +29,19 @@ class Users {
     return;
   }
 
-  static void writeToDB([String? json]) async {
-    json ??= jsonEncode(_users);
-    IOSink fw = _file.openWrite();
-    fw.write(json);
-    await fw.flush();
-    await fw.close();
+  ///API to write into the DB using the User class
+  static Future<bool> writeToDB([String? json]) async {
+    try {
+      json ??= jsonEncode(_users);
+      IOSink fw = _file.openWrite();
+      fw.write(json);
+      await fw.flush();
+      await fw.close();
+      return true;
+    } catch (e) {
+      print(DateTime.timestamp().toString());
+      print('Something went wrong writing to file!');
+      return false;
+    }
   }
 }

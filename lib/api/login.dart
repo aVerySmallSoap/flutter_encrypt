@@ -1,5 +1,6 @@
-import 'Users.dart';
+import 'users.dart';
 
+//TODO: Convert into API calls that returns something
 class Login {
   // Unpack all the data from json here
   static bool login(String username, String password) {
@@ -17,6 +18,7 @@ class Login {
       }
       return logged;
     }
+    print("Incomplete Fields!");
     return false;
   }
 }
