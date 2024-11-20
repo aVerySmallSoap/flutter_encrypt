@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:test_app/utils/interfaces/Ilogging.dart';
+import 'interfaces/Ilogging.dart';
 
 class FileHandler implements IHandler {
   final String _name;
