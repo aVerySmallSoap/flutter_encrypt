@@ -1,14 +1,25 @@
 import 'dart:collection';
 
+import 'package:test_app/utils/interfaces/Ilogging.dart';
+
 enum SEVERITY { info, warning, error, severe, debug }
 
 class Logger {
-  Queue<String> buffer = Queue();
-  final StringBuffer _sb = StringBuffer();
+  String _name;
+  final SEVERITY level;
+  Map<String, IHandler>? handlers;
+
+  Logger(this._name, this.level);
 
   void init() {}
 
-  void log(String message, [SEVERITY s = SEVERITY.info]) {}
+  void log(String message, SEVERITY s) {}
+}
 
-  void toJSON() {}
+class LogEntry {
+  final String? message;
+  final SEVERITY level;
+  final String timestamp = DateTime.now().toString();
+
+  LogEntry(this.message, this.level);
 }

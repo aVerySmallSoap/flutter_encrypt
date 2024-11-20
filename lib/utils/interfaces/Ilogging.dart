@@ -2,6 +2,10 @@ import 'dart:io';
 
 interface class IHandler {
   void write(String s) {}
+
+  IFormatter? getFormatter() {
+    return null;
+  }
 }
 
 interface class IFormatter {
