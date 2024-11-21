@@ -1,6 +1,5 @@
 import 'utils/LinkedList.dart';
 import 'package:test_app/utils/Utility.dart';
-//TODO: Write documentation
 
 /// The shift direction of the `caesar` algorithm.
 enum Shift { left, right }
