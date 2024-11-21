@@ -2,15 +2,22 @@ import 'utils/LinkedList.dart';
 import 'package:test_app/utils/Utility.dart';
 //TODO: Write documentation
 
+/// The shift direction of the `caesar` algorithm.
 enum Shift { left, right }
 
 enum Mode { encrypt, decrypt }
 
 abstract class Translator {
+  /// Translates [word] with its bash counter-part.
   String? bash(String word);
+
+  /// Translates [word] with its caesar counter-part.
   String? caesar(Shift dir, int shift, String word);
+
+  /// Translates [word] with its vigenere counter-part using a [key].
   String? vigenere(String word, String key);
 
+  /// Transforms a `String` into a [LinkedList] of [int].
   LinkedList<int> _key(String k) {
     LinkedList<int> parsed = LinkedList();
     for (int i = 0; i < k.length; ++i) {
@@ -25,11 +32,13 @@ abstract class Translator {
   }
 }
 
+/// Static utility class that enables the usage of [Encrypt] and [Decrypt].
 class Cipher {
   static final Encrypt encrypt = Encrypt();
   static final Decrypt decrypt = Decrypt();
 }
 
+/// Encrypts incoming [Strings] based on a implemented algorithm.
 class Encrypt extends Translator {
   static final StringBuffer _sb = StringBuffer();
 
@@ -99,6 +108,7 @@ class Encrypt extends Translator {
   }
 }
 
+/// Decrypts incoming [Strings] based on a implemented algorithm.
 class Decrypt extends Translator {
   static final StringBuffer _sb = StringBuffer();
 
