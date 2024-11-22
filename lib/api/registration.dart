@@ -3,7 +3,7 @@ import 'database.dart';
 
 //TODO: Convert into API calls that returns something
 class Registration {
-  static bool register(String username, String password) {
+  static Future<bool> register(String username, String password) async {
     if (username == "" || password == "") {
       print("Incomplete fields!");
       return false;
@@ -13,7 +13,9 @@ class Registration {
       return false;
     }
     Database.add(username, password);
-    Database.writeToDB();
+    if (!await Database.writeToDB()) {
+      return false;
+    }
     return true;
   }
 }

@@ -7,7 +7,7 @@ class Login {
     if (Database.table.containsKey(username)) {
       bool logged = false;
       Database.table.forEach((k, v) {
-        if (username == k && password == v["password"]) {
+        if (username == k && password == v.getPassword()) {
           logged = true;
           return;
         }

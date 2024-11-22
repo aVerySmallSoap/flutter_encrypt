@@ -1,8 +1,3 @@
-import 'package:test_app/api/database.dart';
-import 'package:test_app/api/login.dart';
-import 'package:test_app/api/registration.dart';
+import 'Cipher.dart';
 
-void main() async {
-  Database.init();
-  print(Login.login('', ''));
-}
+void main() async {}
