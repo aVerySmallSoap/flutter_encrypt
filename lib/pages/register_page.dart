@@ -17,6 +17,7 @@ class RegisterPage extends StatelessWidget {
 
     Map<String, dynamic> response =
         await Registration.register(username, password);
+    if (!context.mounted) return;
     if (response["status"] == "success") {
       Navigator.pushNamed(context, '/login');
     } else {
