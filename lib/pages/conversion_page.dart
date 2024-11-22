@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/components/mydrawer.dart';
 import 'package:test_app/textstyles/normal_text.dart';
 
 class ConversionPage extends StatelessWidget {
