@@ -3,7 +3,8 @@ import 'database.dart';
 //TODO: Convert into API calls that returns something
 class Login {
   // Unpack all the data from json here
-  static bool login(String username, String password) {
+  static Map<String, dynamic> login(String username, String password) {
+    Map<String, dynamic> returnable;
     if (Database.table.containsKey(username)) {
       bool logged = false;
       Database.table.forEach((k, v) {
@@ -13,12 +14,13 @@ class Login {
         }
       });
       if (!logged) {
-        print("Incorrect password!");
-        return false;
+        return returnable = {
+          "status": "error",
+          "message": "Incorrect password"
+        };
       }
-      return logged;
+      return returnable = {"status": "success", "message": "Login successful"};
     }
-    print("Incomplete Fields!");
-    return false;
+    return returnable = {"status": "error", "message": "Incomplete fields"};
   }
 }
