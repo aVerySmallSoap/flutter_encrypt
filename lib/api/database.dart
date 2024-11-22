@@ -11,15 +11,19 @@ class Database {
   static LinkedHashMap<String, User> table = LinkedHashMap();
 
   static Future<String> _localPath() async {
-    Directory _dir = await getApplicationDocumentsDirectory();
-    return _dir.path;
+    Directory? dir = await getApplicationDocumentsDirectory();
+    return dir.path;
+  }
+
+  static Future<File> _localFile() async {
+    final path = await _localPath();
+    return File('$path/users.json');
   }
 
   /// Initializes the DB into the User class for in-client persistence.
   /// Always call the initialize function when starting the app
   static void init() async {
-    String s = await _localPath();
-    _file = File('${s.toString()}/lib/db/users.json');
+    _file = await _localFile();
     String? json = _file?.readAsStringSync();
     if (json != "") {
       _users = jsonDecode(json!);
