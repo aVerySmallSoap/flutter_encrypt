@@ -57,9 +57,9 @@ class Database {
       await fw?.flush();
       await fw?.close();
     } catch (e) {
-      print(DateTime.now());
-      print('Something went wrong writing to file!');
-      print(e);
+      stdout.write(
+          '[${DateTime.now().toString()}][ERROR]: Something went wrong writing to file!\n');
+      stdout.write(e);
       return false;
     }
     return true;

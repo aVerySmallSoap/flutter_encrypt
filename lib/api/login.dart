@@ -16,6 +16,9 @@ class Login {
       }
       return {"status": "success", "message": "Login successful"};
     }
+    if (!Database.table.containsKey(username) && password != "") {
+      return {"status": "error", "message": "User does not exist"};
+    }
     return {"status": "error", "message": "Incomplete fields"};
   }
 }
