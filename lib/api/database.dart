@@ -1,20 +1,28 @@
 import 'dart:collection';
 import 'dart:io';
 import 'dart:convert';
+import 'package:path_provider/path_provider.dart';
 import 'package:test_app/api/user.dart';
 
 //TODO: Convert into API calls that returns something
 class Database {
-  static final File _file = File('${Directory.current.path}/lib/db/users.json');
+  static File? _file;
   static List<dynamic>? _users = [];
   static LinkedHashMap<String, User> table = LinkedHashMap();
 
+  static Future<String> _localPath() async {
+    Directory _dir = await getApplicationDocumentsDirectory();
+    return _dir.path;
+  }
+
   /// Initializes the DB into the User class for in-client persistence.
   /// Always call the initialize function when starting the app
-  static void init() {
-    String json = _file.readAsStringSync();
+  static void init() async {
+    String s = await _localPath();
+    _file = File('${s.toString()}/lib/db/users.json');
+    String? json = _file?.readAsStringSync();
     if (json != "") {
-      _users = jsonDecode(json);
+      _users = jsonDecode(json!);
       _users?.forEach((user) {
         User temp = User(user["username"], user["password"],
             DateTime.parse(user["registrationDate"]));
@@ -25,6 +33,8 @@ class Database {
   }
 
   static void add(String username, String password) async {
+    User temp = User(username, password, DateTime.now());
+    table.addEntries({MapEntry(username, temp)});
     Map<String, dynamic> user = {};
     user["username"] = username;
     user["password"] = password;
@@ -38,10 +48,10 @@ class Database {
   static Future<bool> writeToDB([String? json]) async {
     try {
       json ??= jsonEncode(_users);
-      IOSink fw = _file.openWrite();
-      fw.write(json);
-      await fw.flush();
-      await fw.close();
+      IOSink? fw = _file?.openWrite();
+      fw?.write(json);
+      await fw?.flush();
+      await fw?.close();
     } catch (e) {
       print(DateTime.now());
       print('Something went wrong writing to file!');

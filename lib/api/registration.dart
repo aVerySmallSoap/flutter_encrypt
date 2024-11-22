@@ -3,7 +3,8 @@ import 'database.dart';
 
 //TODO: Convert into API calls that returns something
 class Registration {
-  static Future<Object> register(String username, String password) async {
+  static Future<Map<String, dynamic>> register(
+      String username, String password) async {
     if (username == "" || password == "") {
       return {"status": "error", "message": "Incomplete fields"};
     }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:test_app/components/mybutton.dart';
 import 'package:test_app/components/mytextfield.dart';
 
+import '../api/database.dart';
+import '../api/login.dart';
+
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
@@ -12,11 +15,12 @@ class LoginPage extends StatelessWidget {
     final username = usernameController.text;
     final password = passwordController.text;
 
-    if (username == 'test' && password == 'test') {
+    Map<String, dynamic> response = Login.login(username, password);
+    if (response["status"] == "success") {
       Navigator.pushNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid credentials')),
+        SnackBar(content: Text(response["message"])),
       );
     }
   }

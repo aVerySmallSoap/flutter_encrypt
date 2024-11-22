@@ -2,12 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:test_app/components/mybutton.dart';
 import 'package:test_app/components/mytextfield.dart';
 
+import '../api/registration.dart';
+
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  void register(BuildContext context) async {
+    final username = usernameController.text;
+    final password = passwordController.text;
+
+    Map<String, dynamic> response =
+        await Registration.register(username, password);
+    if (response["status"] == "success") {
+      Navigator.pushNamed(context, '/login');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response["message"])),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,5 +118,3 @@ class RegisterPage extends StatelessWidget {
     );
   }
 }
-
-void register(BuildContext context) {}
