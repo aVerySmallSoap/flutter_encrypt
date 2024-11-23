@@ -1,193 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:test_app/pages/conversion_page.dart';
+import 'package:test_app/pages/history_page.dart';
+import 'package:test_app/pages/settings_page.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: const Text(
-          'Home',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.blue,
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.account_circle,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // idk
-            },
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.lock),
-              title: const Text('Text Conversion'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const TextConversionScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.history),
-              title: const Text('History'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const HistoryScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('User Settings'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const UserSettingsScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pushNamed(context, '/login');
-              },
-            ),
-          ],
-        ),
-      ),
-      body: const Center(
-        child: Text('Welcome to the Home Screen!'),
-      ),
-    );
-  }
+  State<HomePage> createState() => _HomePageState();
 }
 
-class TextConversionScreen extends StatelessWidget {
-  const TextConversionScreen({super.key});
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: const Text(
-          'Text Conversion',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Add UI elements for text conversion (Caesar, Vigenere, Atbash)
-            Text('Text conversion options will be displayed here.'),
-          ],
-        ),
-      ),
-    );
+  void _navigateBottomBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
-}
 
-class HistoryScreen extends StatelessWidget {
-  const HistoryScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: const Text(
-          'History',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Add UI elements to display history of conversions
-            Text('History of conversions will be displayed here.'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class UserSettingsScreen extends StatelessWidget {
-  const UserSettingsScreen({super.key});
+  final List<Widget> _pages = [
+    const ConversionPage(),
+    const HistoryPage(),
+    const SettingsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: const Text(
-          'User Settings',
-          style: TextStyle(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: Container(
+        color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          child: GNav(
+            gap: 8,
+            backgroundColor: Colors.black,
             color: Colors.white,
+            activeColor: Colors.white,
+            tabBackgroundColor: Colors.grey.shade800,
+            padding: EdgeInsets.all(16),
+            onTabChange: _navigateBottomBar,
+            tabs: [
+              GButton(
+                icon: Icons.hourglass_bottom_rounded,
+                text: 'Conversion',
+              ),
+              GButton(
+                icon: Icons.history,
+                text: 'History',
+              ),
+              GButton(
+                icon: Icons.settings,
+                text: 'Settings',
+              )
+            ],
           ),
-        ),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Add UI elements to edit user settings (username, password)
-            Text('User settings will be displayed here.'),
-          ],
         ),
       ),
     );

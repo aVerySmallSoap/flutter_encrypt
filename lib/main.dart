@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Database.init();
+
     return MaterialApp(
         title: 'TestApp',
         theme: ThemeData(
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         home: LoginPage(),
         routes: {
           '/login': (context) => LoginPage(),
-          '/home': (context) => HomeScreen(),
+          '/home': (context) => HomePage(),
           '/register': (context) => RegisterPage(),
         });
   }

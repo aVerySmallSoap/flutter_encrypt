@@ -47,11 +47,13 @@ class LoginPage extends StatelessWidget {
 
                 // some text
 
-                Text('Welcome back!',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 16,
-                    )),
+                Text(
+                  'Welcome back!',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 16,
+                  ),
+                ),
 
                 const SizedBox(height: 25),
                 // username field

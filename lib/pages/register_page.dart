@@ -11,7 +11,7 @@ class RegisterPage extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void register(BuildContext context) async {
+  void registerUser(BuildContext context) async {
     final username = usernameController.text;
     final password = passwordController.text;
 
@@ -80,7 +80,7 @@ class RegisterPage extends StatelessWidget {
                 // register button
                 MyButton(
                   onTap: () {
-                    register(context);
+                    registerUser(context);
                   },
                   text: const Text(
                     'Register',
