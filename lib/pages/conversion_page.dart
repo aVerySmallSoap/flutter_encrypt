@@ -24,11 +24,7 @@ class ConversionPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Add ui for encoding and decoding (atbash, caesar, and vignere)
                 SizedBox(height: 50),
-
-                // Add radio buttons for encoding and decoding
-                // Radio buttons for encoding and decoding
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -46,10 +42,7 @@ class ConversionPage extends StatelessWidget {
                     const Text('Decode'),
                   ],
                 ),
-
                 SizedBox(height: 20),
-
-                // Radio buttons for atbash, caesar, and vignere
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -73,10 +66,7 @@ class ConversionPage extends StatelessWidget {
                     const Text('Vignere'),
                   ],
                 ),
-
                 SizedBox(height: 20),
-
-                // Text field for input
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: TextField(
@@ -86,18 +76,12 @@ class ConversionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: 20),
-
-                // Button for action
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text('Submit'),
                 ),
-
                 SizedBox(height: 20),
-
-                // Text field for input
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: TextField(
@@ -107,10 +91,7 @@ class ConversionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: 20),
-
-                // Add radio buttons for atbash, caesar, and vignere
               ],
             ),
           ),
