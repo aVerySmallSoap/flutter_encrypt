@@ -10,20 +10,19 @@ class Database {
   static List<dynamic>? _users = [];
   static LinkedHashMap<String, User> table = LinkedHashMap();
 
-  static Future<String> _localPath() async {
-    Directory? dir = await getApplicationDocumentsDirectory();
-    return dir.path;
-  }
-
-  static Future<File> _localFile() async {
-    final path = await _localPath();
-    return File('$path/users.json');
+  static Future<File> getJSON() async {
+    try {
+      Directory? dir = await getApplicationDocumentsDirectory();
+      return File('${dir.path}/users.json');
+    } catch (e) {
+      return File('./lib/db/users.json');
+    }
   }
 
   /// Initializes the DB into the User class for in-client persistence.
   /// Always call the initialize function when starting the app
   static void init() async {
-    _file = await _localFile();
+    _file = await getJSON();
     String? json = _file?.readAsStringSync();
     if (json != "") {
       _users = jsonDecode(json!);
