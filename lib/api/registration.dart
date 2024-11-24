@@ -1,19 +1,22 @@
+import 'package:test_app/api/returnable.dart';
+
 import 'database.dart';
 
 //TODO: Convert into API calls that returns something
 class Registration {
-  static Future<Map<String, dynamic>> register(
+  static Future<Map<String, dynamic>?> register(
       String username, String password) async {
     if (username == "" || password == "") {
-      return {"status": "error", "message": "Incomplete fields"};
+      return JSON(400, STATUS.badRequest, "Fill out all the fields!").build();
     }
     if (Database.table.containsKey(username)) {
-      return {"status": "error", "message": "Username already taken"};
+      return JSON(400, STATUS.badRequest, "Username already taken!").build();
     }
     Database.add(username, password);
     if (!await Database.writeToDB()) {
-      return {"status": "error", "message": "Database write went wrong"};
+      return JSON(500, STATUS.internalError, "Database write went wrong!")
+          .build();
     }
-    return {"status": "success", "message": "Login successful"};
+    return JSON(200, STATUS.OK, "Registration successful!").build();
   }
 }
