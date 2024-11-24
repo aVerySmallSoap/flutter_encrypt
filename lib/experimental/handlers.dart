@@ -1,6 +1,8 @@
+// ignore_for_file: unused_field
+
 import 'dart:io';
 
-import 'interfaces/Ilogging.dart';
+import 'interfaces/i_logging.dart';
 
 class FileHandler implements IHandler {
   final String _name;

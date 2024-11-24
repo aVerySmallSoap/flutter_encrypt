@@ -2,7 +2,6 @@ import 'package:test_app/api/returnable.dart';
 
 import 'database.dart';
 
-//TODO: Convert into API calls that returns something
 class Login {
   static Map<String, dynamic>? login(String username, String password) {
     if (username == "" && password == "") {
