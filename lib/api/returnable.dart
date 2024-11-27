@@ -46,7 +46,7 @@ class JSON implements Returnable {
       _returnable?.addAll(_error!);
     }
     if (_optional != null) {
-      _returnable?.addAll({"additional": _optional});
+      _returnable?.addAll({"optional": _optional});
     }
     return _returnable;
   }

@@ -7,6 +7,14 @@ class User {
   User(String this.username, String this._password,
       DateTime this.dateRegistered);
 
+  Map<String, dynamic> toJson([User? u]) => {
+        "username": u?.username ?? username,
+        "password": u?._password ?? _password,
+        "registrationDate":
+            u?.dateRegistered.toString() ?? dateRegistered.toString(),
+        "history": u?.history ?? history
+      };
+
   String? getUsername() {
     return username;
   }
@@ -29,31 +37,25 @@ class User {
 
   bool addHistory(String e) {
     if (e == "" || e == " ") {
-      print("Empty String!");
       return false;
     }
-    print("$e added to $username's history!");
     history.add(e);
     return true;
   }
 
   bool removeHistory(String e) {
     if (e == "" || e == " ") {
-      print("Empty String!");
       return false;
     }
-    print("$e removed from $username's history!");
     history.remove(e);
     return true;
   }
 
   bool clearHistory() {
     if (history.isNotEmpty) {
-      print("cleared $username's history!");
       history.clear();
       return true;
     }
-    print("User does not have a history!");
     return false;
   }
 }

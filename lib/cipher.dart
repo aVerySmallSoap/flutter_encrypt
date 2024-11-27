@@ -1,3 +1,4 @@
+import 'package:test_app/api/returnable.dart';
 import 'package:test_app/utils/utility.dart';
 import 'package:test_app/utils/linked_List.dart';
 
@@ -8,13 +9,13 @@ enum Mode { encrypt, decrypt }
 
 abstract class Translator {
   /// Translates [word] with its bash counter-part.
-  String? bash(String word);
+  Map<String, dynamic>? bash(String word);
 
   /// Translates [word] with its caesar counter-part.
-  String? caesar(Shift dir, int shift, String word);
+  Map<String, dynamic>? caesar(Shift dir, int shift, String word);
 
   /// Translates [word] with its vigenere counter-part using a [key].
-  String? vigenere(String word, String key);
+  Map<String, dynamic>? vigenere(String word, String key);
 
   /// Transforms a `String` into a [LinkedList] of [int].
   LinkedList<int> _key(String k) {
@@ -42,8 +43,12 @@ class Encrypt extends Translator {
   static final StringBuffer _sb = StringBuffer();
 
   @override
-  String? bash(String word) {
+  Map<String, dynamic>? bash(String word) {
     for (int i = 0; i < word.length; ++i) {
+      if (word.codeUnits[i] == 32) {
+        _sb.write(" ");
+        continue;
+      }
       for (int j = 0; j < Alphabets.size; ++j) {
         if (Alphabets.ordered[j] == word[i].toUpperCase()) {
           _sb.write(Alphabets.ordered[Alphabets.size - (j + 1)]);
@@ -53,11 +58,13 @@ class Encrypt extends Translator {
     }
     String? t = _sb.toString();
     _sb.clear();
-    return t.toString();
+    return JSON(200, STATUS.OK, "text ciphered")
+        .addOptional(t.toString())
+        .build();
   }
 
   @override
-  String? caesar(Shift dir, int shift, String word) {
+  Map<String, dynamic>? caesar(Shift dir, int shift, String word) {
     dir == Shift.left ? shift *= -1 : shift;
     for (int i = 0; i < word.length; ++i) {
       for (int j = 0; j < Alphabets.size; ++j) {
@@ -71,11 +78,13 @@ class Encrypt extends Translator {
     }
     String? t = _sb.toString();
     _sb.clear();
-    return t.toString();
+    return JSON(200, STATUS.OK, "text ciphered")
+        .addOptional(t.toString())
+        .build();
   }
 
   @override
-  String? vigenere(String word, String key) {
+  Map<String, dynamic>? vigenere(String word, String key) {
     LinkedList<int> keyList = super._key(key);
     Node<int>? ptr = keyList.head;
     List<int> parsed = List<int>.filled(word.length, 0);
@@ -103,7 +112,9 @@ class Encrypt extends Translator {
     }
     String? cyphered = _sb.toString();
     _sb.clear();
-    return cyphered;
+    return JSON(200, STATUS.OK, "text ciphered")
+        .addOptional(cyphered.toString())
+        .build();
   }
 }
 
@@ -112,7 +123,7 @@ class Decrypt extends Translator {
   static final StringBuffer _sb = StringBuffer();
 
   @override
-  String? bash(String word) {
+  Map<String, dynamic>? bash(String word) {
     for (var i = 0; i < word.length; ++i) {
       for (var j = Alphabets.size - 1; j >= 0; --j) {
         if (Alphabets.ordered[j] == word[i].toUpperCase()) {
@@ -123,17 +134,18 @@ class Decrypt extends Translator {
     }
     String? t = _sb.toString();
     _sb.clear();
-    return t.toString();
+    return JSON(200, STATUS.OK, "text ciphered")
+        .addOptional(t.toString())
+        .build();
   }
 
   @override
-  String? caesar(Shift dir, int shift, String word) {
-    // TODO: implement caesar
-    throw UnimplementedError();
+  Map<String, dynamic>? caesar(Shift dir, int shift, String word) {
+    return JSON(500, STATUS.internalError, "Unknown method").build();
   }
 
   @override
-  String? vigenere(String word, String key) {
+  Map<String, dynamic>? vigenere(String word, String key) {
     LinkedList<int> keyList = super._key(key);
     Node<int>? ptr = keyList.head;
     List<int> parsed = List<int>.filled(word.length, 0);
@@ -161,6 +173,8 @@ class Decrypt extends Translator {
     }
     String? cyphered = _sb.toString();
     _sb.clear();
-    return cyphered;
+    return JSON(200, STATUS.OK, "text ciphered")
+        .addOptional(cyphered.toString())
+        .build();
   }
 }

@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:io';
 import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
+import 'package:test_app/api/session.dart';
 import 'package:test_app/api/user.dart';
 
 //TODO: Convert into API calls that returns something
@@ -45,6 +46,20 @@ class Database {
     user["history"] = <String>[];
     _users?.add(user);
     return;
+  }
+
+  ///Call when user logs out
+  static void exit() {
+    if (_users!.isNotEmpty) {
+      _users?.clear();
+    }
+    table.forEach((k, v) {
+      if (k == Session.user?.username) {
+        v = Session.user!;
+      }
+      _users?.add(v.toJson());
+    });
+    writeToDB();
   }
 
   ///API to write into the DB using the User class
