@@ -1,9 +1,11 @@
-import 'interfaces/Ilogging.dart';
+// ignore_for_file: unused_field
+
+import 'interfaces/i_logging.dart';
 
 enum SEVERITY { info, warning, error, severe, debug }
 
 class Logger {
-  String _name;
+  final String _name;
   final SEVERITY level;
   Map<String, IHandler>? handlers;
 

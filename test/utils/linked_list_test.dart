@@ -1,9 +1,9 @@
-import 'package:test_app/utils/LinkedList.dart';
+import 'package:test_app/utils/linked_List.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Test for LinkedList.dart', () {
+  group('Test for linked_List.dart', () {
     test('toList should return a List of items from the LinkedList', () {
       LinkedList<String> list = LinkedList();
       list.insertLast('A');

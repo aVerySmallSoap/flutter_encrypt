@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:test_app/utils/Utility.dart';
+import 'package:test_app/utils/utility.dart';
 
 void main() {
   group('Test for utility.dart', () {

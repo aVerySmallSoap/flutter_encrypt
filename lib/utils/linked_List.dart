@@ -1,6 +1,5 @@
 import 'dart:io';
 
-//I am reusing old C++ code for this LinkedList lol
 //TODO: Write documentation
 class Node<T> {
   T value;

@@ -3,6 +3,7 @@ import 'package:test_app/components/mybutton.dart';
 import 'package:test_app/components/mytextfield.dart';
 
 import '../api/registration.dart';
+import '../api/returnable.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
@@ -15,14 +16,14 @@ class RegisterPage extends StatelessWidget {
     final username = usernameController.text;
     final password = passwordController.text;
 
-    Map<String, dynamic> response =
+    Map<String, dynamic>? response =
         await Registration.register(username, password);
     if (!context.mounted) return;
-    if (response["status"] == "success") {
+    if (response?["status"] == STATUS.OK) {
       Navigator.pushNamed(context, '/login');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(response["message"])),
+        SnackBar(content: Text(response?["message"])),
       );
     }
   }

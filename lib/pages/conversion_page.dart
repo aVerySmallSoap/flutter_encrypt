@@ -1,8 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/textstyles/normal_text.dart';
+import 'package:test_app/api/login.dart';
+import 'package:test_app/components/mybutton.dart';
+import 'package:test_app/components/mytextfield.dart';
 
-class ConversionPage extends StatelessWidget {
+import '../api/returnable.dart';
+import '../api/session.dart';
+import '../cipher.dart';
+
+class ConversionPage extends StatefulWidget {
   const ConversionPage({super.key});
+
+  @override
+  State<ConversionPage> createState() => _ConversionPageState();
+}
+
+class _ConversionPageState extends State<ConversionPage> {
+  final TextEditingController inputController = TextEditingController();
+  final TextEditingController outputController = TextEditingController();
+
+  void convert() {
+    Map<String, dynamic>? response = Cipher.encrypt.bash(inputController.text);
+    if (outputController.text.isNotEmpty && response?["status"] == STATUS.OK) {
+      Session.user?.addHistory(outputController.text);
+      outputController.clear();
+      outputController.text = response!["optional"].toString();
+      return;
+    }
+    if (response?["status"] == STATUS.OK) {
+      outputController.text = response!["optional"].toString();
+      Session.user?.addHistory(outputController.text);
+    }
+    return;
+  }
+
+  Future<bool?> _showLogoutDialog() {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Logout"),
+          content: const Text("Do you want to logout?"),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Stay")),
+            TextButton(
+                onPressed: () => {Login.logout(), Navigator.pop(context, true)},
+                child: const Text("Logout"))
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,83 +67,40 @@ class ConversionPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 50),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio<String>(
-                      value: 'encode',
-                      groupValue: 'action',
-                      onChanged: (value) {},
-                    ),
-                    const Text('Encode'),
-                    Radio<String>(
-                      value: 'decode',
-                      groupValue: 'action',
-                      onChanged: (value) {},
-                    ),
-                    const Text('Decode'),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio<String>(
-                      value: 'atbash',
-                      groupValue: 'cipher',
-                      onChanged: (value) {},
-                    ),
-                    const Text('Atbash'),
-                    Radio<String>(
-                      value: 'caesar',
-                      groupValue: 'cipher',
-                      onChanged: (value) {},
-                    ),
-                    const Text('Caesar'),
-                    Radio<String>(
-                      value: 'vignere',
-                      groupValue: 'cipher',
-                      onChanged: (value) {},
-                    ),
-                    const Text('Vignere'),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Enter text',
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Submit'),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Result text',
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-              ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            PopScope<Object?>(
+              canPop: false,
+              onPopInvokedWithResult: (bool didPop, Object? result) async {
+                if (didPop) return;
+                final bool shouldPop = await _showLogoutDialog() ?? false;
+                if (context.mounted && shouldPop) Navigator.pop(context);
+              },
+              child: TextButton(
+                  onPressed: () async {
+                    final shouldPop = await _showLogoutDialog() ?? false;
+                    if (context.mounted && shouldPop) Navigator.pop(context);
+                  },
+                  child: Visibility(
+                    visible: false,
+                    child: const Text(""),
+                  )),
             ),
-          ),
+            MyTextField(
+                controller: inputController,
+                hintText: "Input",
+                obscureText: false),
+            MyButton(
+              onTap: () => convert(),
+              text: const Text("convert"),
+            ),
+            TextField(
+              controller: outputController,
+              readOnly: true,
+            ),
+          ],
         ),
       ),
     );

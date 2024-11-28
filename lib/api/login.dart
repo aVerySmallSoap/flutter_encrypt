@@ -1,24 +1,36 @@
+import 'package:test_app/api/returnable.dart';
+import 'package:test_app/api/session.dart';
+
 import 'database.dart';
 
-//TODO: Convert into API calls that returns something
 class Login {
-  static Map<String, dynamic> login(String username, String password) {
+  static Map<String, dynamic>? login(String username, String password) {
+    if (username == "" && password == "") {
+      return JSON(400, STATUS.badRequest, "Fill out all the fields!").build();
+    }
     if (Database.table.containsKey(username)) {
       bool logged = false;
       Database.table.forEach((k, v) {
         if (username == k && password == v.getPassword()) {
           logged = true;
+          SessionBuilder.initSession(v);
           return;
         }
       });
       if (!logged) {
-        return {"status": "error", "message": "Incorrect password"};
+        return JSON(400, STATUS.badRequest, "Incorrect password!").build();
       }
-      return {"status": "success", "message": "Login successful"};
+      return JSON(200, STATUS.OK, "Login successful!").build();
     }
     if (!Database.table.containsKey(username) && password != "") {
-      return {"status": "error", "message": "User does not exist"};
+      return JSON(500, STATUS.internalError, "User does not exists!").build();
     }
-    return {"status": "error", "message": "Incomplete fields"};
+    return JSON(400, STATUS.badRequest, "Incomplete fields!").build();
+  }
+
+  static void logout() {
+    Database.exit();
+    SessionBuilder.invalidateSession();
+    return;
   }
 }
