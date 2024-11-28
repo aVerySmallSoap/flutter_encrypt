@@ -31,15 +31,23 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
-        color: Colors.black,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.25),
+              blurRadius: 1,
+              spreadRadius: 1.5,
+            ),
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
           child: GNav(
-            gap: 8,
-            backgroundColor: Colors.black,
-            color: Colors.white,
+            gap: 4,
+            color: Colors.blue,
             activeColor: Colors.white,
-            tabBackgroundColor: Colors.grey.shade800,
+            tabBackgroundColor: Colors.blue,
             padding: EdgeInsets.all(16),
             onTabChange: _navigateBottomBar,
             tabs: [

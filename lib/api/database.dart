@@ -23,15 +23,20 @@ class Database {
   /// Initializes the DB into the User class for in-client persistence.
   /// Always call the initialize function when starting the app
   static void init() async {
-    _file = await getJSON();
-    String? json = _file?.readAsStringSync();
-    if (json != "") {
-      _users = jsonDecode(json!);
-      _users?.forEach((user) {
-        User temp = User(user["username"], user["password"],
-            DateTime.parse(user["registrationDate"]));
-        table.addEntries({MapEntry(user["username"], temp)});
-      });
+    try {
+      _file = await getJSON();
+      String? json = _file?.readAsStringSync();
+      if (json != "") {
+        _users = jsonDecode(json!);
+        _users?.forEach((user) {
+          User temp = User(user["username"], user["password"],
+              DateTime.parse(user["registrationDate"]));
+          table.addEntries({MapEntry(user["username"], temp)});
+        });
+      }
+      return;
+    } catch (e) {
+      stdout.write("File not found! Creating file"); // log this line
     }
     return;
   }

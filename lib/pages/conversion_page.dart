@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/api/login.dart';
-import 'package:test_app/components/mybutton.dart';
-import 'package:test_app/components/mytextfield.dart';
+import 'package:test_app/components/cipherbuttons.dart';
 
 import '../api/returnable.dart';
 import '../api/session.dart';
@@ -56,53 +55,77 @@ class _ConversionPageState extends State<ConversionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: const Text(
-          'Home',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
-      ),
+      backgroundColor: Colors.white38,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            PopScope<Object?>(
+          child: PopScope<Object?>(
               canPop: false,
               onPopInvokedWithResult: (bool didPop, Object? result) async {
                 if (didPop) return;
                 final bool shouldPop = await _showLogoutDialog() ?? false;
                 if (context.mounted && shouldPop) Navigator.pop(context);
               },
-              child: TextButton(
-                  onPressed: () async {
-                    final shouldPop = await _showLogoutDialog() ?? false;
-                    if (context.mounted && shouldPop) Navigator.pop(context);
-                  },
-                  child: Visibility(
-                    visible: false,
-                    child: const Text(""),
-                  )),
-            ),
-            MyTextField(
-                controller: inputController,
-                hintText: "Input",
-                obscureText: false),
-            MyButton(
-              onTap: () => convert(),
-              text: const Text("convert"),
-            ),
-            TextField(
-              controller: outputController,
-              readOnly: true,
-            ),
-          ],
-        ),
-      ),
+              child: Column(
+                children: [
+                  Container(
+                    constraints: BoxConstraints(minHeight: 64),
+                    padding: EdgeInsets.only(top: 24, left: 12, bottom: 8),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                        Colors.blueAccent,
+                        Colors.blue,
+                        Colors.lightBlue,
+                        Colors.lightBlueAccent
+                      ], transform: GradientRotation(180)),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(6),
+                          bottomRight: Radius.circular(6)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.4),
+                          blurRadius: 2,
+                          spreadRadius: 4,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Conversion",
+                          style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Courier New"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CipherButton(
+                        action: () {},
+                        text: "@Bash",
+                        desc:
+                            "Cipher your text using a reversed alphabet table",
+                        image: AssetImage("images/w_email.png"),
+                      ),
+                      CipherButton(
+                        action: () {},
+                        text: "Caesar",
+                        desc:
+                            "Cipher your text by shifting the alphabet to the left or right",
+                        image: AssetImage("images/w_caesar.png"),
+                      ),
+                      CipherButton(
+                        action: () {},
+                        text: "Vigenere",
+                        desc: "Cipher your text by using a key",
+                        image: AssetImage("images/w_key.png"),
+                      ),
+                    ],
+                  ),
+                ],
+              ))),
     );
   }
 }
