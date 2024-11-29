@@ -66,9 +66,16 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - images/w_email.png
-    - images/w_caesar.png
-    - images/w_key.png
+    - assets/images/w_email.png
+    - assets/images/w_caesar.png
+    - assets/images/w_key.png
+
+  fonts:
+    - family: Antipasto
+      fonts:
+        - asset: assets/fonts/AntipastoPro-Regular.ttf
+        - asset: assets/fonts/AntipastoPro-Bold.ttf
+          weight: 400
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

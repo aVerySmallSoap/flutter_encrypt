@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/pages/atbash_page.dart';
 import 'package:test_app/pages/home_page.dart';
 import 'package:test_app/pages/login_page.dart';
 import 'package:test_app/pages/register_page.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginPage(),
           '/home': (context) => HomePage(),
           '/register': (context) => RegisterPage(),
+          '/bash': (context) => AtBashPage(),
         });
   }
 }

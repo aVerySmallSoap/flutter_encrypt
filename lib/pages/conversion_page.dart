@@ -106,24 +106,25 @@ class _ConversionPageState extends State<ConversionPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             CipherButton(
-                              action: () {},
+                              action: () =>
+                                  Navigator.of(context).pushNamed('/bash'),
                               text: "@Bash",
                               desc:
                                   "Cipher your text using a reversed alphabet table",
-                              image: AssetImage("images/w_email.png"),
+                              image: AssetImage("assets/images/w_email.png"),
                             ),
                             CipherButton(
                               action: () {},
                               text: "Caesar",
                               desc:
                                   "Cipher your text by shifting the alphabet to the left or right",
-                              image: AssetImage("images/w_caesar.png"),
+                              image: AssetImage("assets/images/w_caesar.png"),
                             ),
                             CipherButton(
                               action: () {},
                               text: "Vigenere",
                               desc: "Cipher your text by using a key",
-                              image: AssetImage("images/w_key.png"),
+                              image: AssetImage("assets/images/w_key.png"),
                             ),
                           ],
                         ),
