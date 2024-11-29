@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/textstyles/normal_text.dart';
+import 'package:test_app/components/historylist.dart';
+import '../api/login.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
+
+  @override
+  State<HistoryPage> createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  Future<bool?> _showLogoutDialog() {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Logout"),
+          content: const Text("Do you want to logout?"),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Stay")),
+            TextButton(
+                onPressed: () => {Login.logout(), Navigator.pop(context, true)},
+                child: const Text("Logout"))
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +44,18 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Add UI elements to display history of conversions
-            MyNormalText(
-                text: 'History of conversions will be displayed here.'),
-          ],
+      body: PopScope<Object?>(
+        canPop: false,
+        onPopInvokedWithResult: (bool didPop, Object? result) async {
+          if (didPop) return;
+          final bool shouldPop = await _showLogoutDialog() ?? false;
+          if (context.mounted && shouldPop) Navigator.pop(context);
+        },
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [HistoryList()],
+          ),
         ),
       ),
     );

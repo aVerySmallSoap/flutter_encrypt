@@ -2,17 +2,20 @@ class User {
   String? username;
   final String? _password;
   DateTime? dateRegistered;
-  List<String> history = [];
+  List<String> _history = [];
 
-  User(String this.username, String this._password,
-      DateTime this.dateRegistered);
+  User(
+    String this.username,
+    String this._password,
+    DateTime this.dateRegistered,
+  );
 
   Map<String, dynamic> toJson([User? u]) => {
         "username": u?.username ?? username,
         "password": u?._password ?? _password,
         "registrationDate":
             u?.dateRegistered.toString() ?? dateRegistered.toString(),
-        "history": u?.history ?? history
+        "history": u?._history ?? _history
       };
 
   String? getUsername() {
@@ -31,15 +34,20 @@ class User {
     return dateRegistered.toString();
   }
 
-  List<String>? getHistory() {
-    return history;
+  List<String> getHistory() {
+    return _history;
+  }
+
+  void replaceHistory(List<String> list) {
+    _history = list;
+    return;
   }
 
   bool addHistory(String e) {
     if (e == "" || e == " ") {
       return false;
     }
-    history.add(e);
+    _history.add(e);
     return true;
   }
 
@@ -47,13 +55,13 @@ class User {
     if (e == "" || e == " ") {
       return false;
     }
-    history.remove(e);
+    _history.remove(e);
     return true;
   }
 
   bool clearHistory() {
-    if (history.isNotEmpty) {
-      history.clear();
+    if (_history.isNotEmpty) {
+      _history.clear();
       return true;
     }
     return false;

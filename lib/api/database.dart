@@ -29,8 +29,14 @@ class Database {
       if (json != "") {
         _users = jsonDecode(json!);
         _users?.forEach((user) {
+          List<dynamic> uHist = user["history"];
+          List<String> tList = List.empty(growable: true);
           User temp = User(user["username"], user["password"],
               DateTime.parse(user["registrationDate"]));
+          for (var e in uHist) {
+            tList.add(e);
+          }
+          temp.replaceHistory(tList);
           table.addEntries({MapEntry(user["username"], temp)});
         });
       }
@@ -53,7 +59,6 @@ class Database {
     return;
   }
 
-  ///Call when user logs out
   static void exit() {
     if (_users!.isNotEmpty) {
       _users?.clear();
@@ -67,7 +72,6 @@ class Database {
     writeToDB();
   }
 
-  ///API to write into the DB using the User class
   static Future<bool> writeToDB([String? json]) async {
     try {
       json ??= jsonEncode(_users);
