@@ -103,7 +103,6 @@ class _ConversionPageState extends State<ConversionPage> {
                           ),
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             CipherButton(
                               action: () =>

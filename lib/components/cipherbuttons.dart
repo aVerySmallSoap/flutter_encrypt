@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CipherButton extends StatelessWidget {
   final Function()? action;
@@ -76,19 +75,25 @@ class CipherButton extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      text,
-                      style: GoogleFonts.openSans(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
+                    Container(
+                      margin: EdgeInsets.only(top: 8),
+                      child: Text(
+                        text,
+                        style: TextStyle(
+                          wordSpacing: 4,
+                          fontFamily: "Antipasto",
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                     ),
                     Text(
                       desc,
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.openSans(
+                      style: TextStyle(
+                        fontFamily: "Antipasto",
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
