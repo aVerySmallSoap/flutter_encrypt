@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Database.init();
-
     return MaterialApp(
         title: 'TestApp',
         theme: ThemeData(

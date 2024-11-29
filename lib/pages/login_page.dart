@@ -17,7 +17,8 @@ class LoginPage extends StatelessWidget {
 
     Map<String, dynamic>? response = Login.login(username, password);
     if (response?["status"] == STATUS.OK) {
-      Navigator.pushNamed(context, '/home');
+      Navigator.of(context).pop();
+      Navigator.of(context).pushNamed('/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(response!["message"])),
