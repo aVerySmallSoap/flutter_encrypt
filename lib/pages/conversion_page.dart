@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test_app/api/login.dart';
-import 'package:test_app/components/cipherbuttons.dart';
+import 'package:test_app/components/cipher_button.dart';
 
 import '../api/returnable.dart';
 import '../api/session.dart';
-import '../cipher.dart';
+import '../api/cipher.dart';
 
 class ConversionPage extends StatefulWidget {
   const ConversionPage({super.key});
