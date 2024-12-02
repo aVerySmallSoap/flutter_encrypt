@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/components/historylist.dart';
+
 import '../api/login.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -51,12 +52,7 @@ class _HistoryPageState extends State<HistoryPage> {
           final bool shouldPop = await _showLogoutDialog() ?? false;
           if (context.mounted && shouldPop) Navigator.pop(context);
         },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [HistoryList()],
-          ),
-        ),
+        child: HistoryList(),
       ),
     );
   }

@@ -67,6 +67,7 @@ class _ConversionPageState extends State<ConversionPage> {
           children: [
             Expanded(
               child: Container(
+                padding: EdgeInsets.only(top: 24),
                 constraints: BoxConstraints(minHeight: 64),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(

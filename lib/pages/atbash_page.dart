@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:test_app/api/session.dart';
+
+import '../api/returnable.dart';
+import '../cipher.dart';
 
 class AtBashPage extends StatefulWidget {
   const AtBashPage({
@@ -11,6 +14,9 @@ class AtBashPage extends StatefulWidget {
 }
 
 class _AtBashPageState extends State<AtBashPage> {
+  String _changeable = "";
+  TextEditingController input = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +65,19 @@ class _AtBashPageState extends State<AtBashPage> {
                         ),
                       ),
                     ),
+                    Expanded(
+                      child: Text(
+                        _changeable,
+                        key: Key("bash_key"),
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Antipasto",
+                          fontSize: 28,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -80,7 +99,41 @@ class _AtBashPageState extends State<AtBashPage> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              child: Text("test"),
+              child: Container(
+                padding: EdgeInsets.only(top: 32, left: 32, right: 32),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 18),
+                      child: TextField(
+                        controller: input,
+                        decoration: InputDecoration(
+                          hintText: "Word",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.maxFinite,
+                      child: FilledButton(
+                        onPressed: () {
+                          Map<String, dynamic>? response =
+                              Cipher.encrypt.bash(input.text);
+                          if (response?["status"] == STATUS.OK) {
+                            setState(() {
+                              _changeable = response?["optional"];
+                              Session.user?.addHistory(response?["optional"]);
+                            });
+                          }
+                        },
+                        child: Text("Cipher"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           )
         ],
