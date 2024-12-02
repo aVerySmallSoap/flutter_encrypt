@@ -5,8 +5,7 @@ class CipherButton extends StatelessWidget {
   final String text;
   final String desc;
   final AssetImage image;
-  static const Color imageColor =
-      Color.fromRGBO(237, 237, 233, 1); // This should be followed with fill
+  final LinearGradient gradient; // This should be followed with fill
 
   const CipherButton({
     super.key,
@@ -14,6 +13,7 @@ class CipherButton extends StatelessWidget {
     required this.text,
     required this.desc,
     required this.image,
+    required this.gradient,
   });
 
   @override
@@ -25,17 +25,7 @@ class CipherButton extends StatelessWidget {
       margin: EdgeInsets.only(top: 2),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.blue[400]!,
-              Colors.blue[300]!,
-              Colors.blue,
-              Colors.lightBlue,
-              Colors.lightBlue[400]!,
-              Colors.lightBlue[300]!,
-            ],
-            transform: GradientRotation(180),
-          ),
+          gradient: gradient,
           boxShadow: [
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.4),

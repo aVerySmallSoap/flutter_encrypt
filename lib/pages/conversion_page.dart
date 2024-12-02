@@ -71,10 +71,8 @@ class _ConversionPageState extends State<ConversionPage> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.blueAccent,
-                      Colors.blue,
-                      Colors.lightBlue,
-                      Colors.lightBlueAccent
+                      Color.fromRGBO(92, 75, 81, 1),
+                      Color.fromRGBO(92, 75, 81, 1),
                     ],
                     transform: GradientRotation(180),
                   ),
@@ -111,6 +109,12 @@ class _ConversionPageState extends State<ConversionPage> {
                               desc:
                                   "Cipher your text using a reversed alphabet table",
                               image: AssetImage("assets/images/w_email.png"),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(240, 96, 96, 1),
+                                  Color.fromRGBO(240, 96, 96, 1),
+                                ],
+                              ),
                             ),
                             CipherButton(
                               action: () {},
@@ -118,12 +122,24 @@ class _ConversionPageState extends State<ConversionPage> {
                               desc:
                                   "Cipher your text by shifting the alphabet to the left or right",
                               image: AssetImage("assets/images/w_caesar.png"),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(243, 181, 98, 1),
+                                  Color.fromRGBO(243, 181, 98, 1),
+                                ],
+                              ),
                             ),
                             CipherButton(
                               action: () {},
                               text: "Vigenere",
                               desc: "Cipher your text by using a key",
                               image: AssetImage("assets/images/w_key.png"),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(140, 190, 178, 1),
+                                  Color.fromRGBO(140, 190, 178, 1),
+                                ],
+                              ),
                             ),
                           ],
                         ),

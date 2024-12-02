@@ -22,11 +22,12 @@ class _AtBashPageState extends State<AtBashPage> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.deepOrangeAccent,
-                  Colors.orange,
-                  Colors.orangeAccent,
+                  Color.fromRGBO(240, 96, 96, 1),
+                  Color.fromRGBO(245, 125, 90, 1),
+                  Color.fromRGBO(245, 153, 90, 1),
+                  Color.fromRGBO(243, 180, 98, 1),
                 ],
-                transform: GradientRotation(180),
+                transform: GradientRotation(240),
               ),
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
