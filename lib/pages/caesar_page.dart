@@ -1,21 +1,26 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:test_app/api/session.dart';
+import 'package:flutter/services.dart';
 
-import '../api/returnable.dart';
 import '../api/cipher.dart';
+import '../api/returnable.dart';
+import '../api/session.dart';
 
-class AtBashPage extends StatefulWidget {
-  const AtBashPage({
+class CaesarPage extends StatefulWidget {
+  const CaesarPage({
     super.key,
   });
 
   @override
-  State<AtBashPage> createState() => _AtBashPageState();
+  State<StatefulWidget> createState() => _CaesarPageState();
 }
 
-class _AtBashPageState extends State<AtBashPage> {
+class _CaesarPageState extends State<CaesarPage> {
   String _changeable = "";
   TextEditingController input = TextEditingController();
+  TextEditingController shifts = TextEditingController();
+  Shift direction = Shift.right;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +33,10 @@ class _AtBashPageState extends State<AtBashPage> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(240, 96, 96, 1),
-                  Color.fromRGBO(245, 125, 90, 1),
-                  Color.fromRGBO(245, 153, 90, 1),
                   Color.fromRGBO(243, 180, 98, 1),
+                  Color.fromRGBO(240, 200, 127, 1),
+                  Color.fromRGBO(239, 219, 158, 1),
+                  Color.fromRGBO(242, 235, 192, 1),
                 ],
                 transform: GradientRotation(240),
               ),
@@ -54,7 +59,7 @@ class _AtBashPageState extends State<AtBashPage> {
                     margin: EdgeInsets.all(8),
                     padding: EdgeInsets.all(4),
                     child: Text(
-                      "@Bash",
+                      "Caesar",
                       style: TextStyle(
                         fontFamily: "Antipasto",
                         fontSize: 48,
@@ -64,15 +69,17 @@ class _AtBashPageState extends State<AtBashPage> {
                       ),
                     ),
                   ),
-                  Text(
-                    _changeable,
-                    key: Key("bash_key"),
-                    overflow: TextOverflow.fade,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Antipasto",
-                      fontSize: 28,
-                      fontStyle: FontStyle.italic,
+                  Expanded(
+                    child: Text(
+                      _changeable,
+                      key: Key("bash_key"),
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Antipasto",
+                        fontSize: 28,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ),
                 ],
@@ -104,7 +111,7 @@ class _AtBashPageState extends State<AtBashPage> {
                       child: TextField(
                         controller: input,
                         decoration: InputDecoration(
-                          hintText: "Word",
+                          labelText: "Word",
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                           ),
@@ -112,11 +119,58 @@ class _AtBashPageState extends State<AtBashPage> {
                       ),
                     ),
                     Container(
+                      child: TextField(
+                        controller: shifts,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          labelText: "Shifts",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RadioListTile<Shift>(
+                            title: const Text("Left"),
+                            value: Shift.left,
+                            groupValue: direction,
+                            onChanged: (Shift? val) {
+                              setState(() {
+                                direction = val!;
+                              });
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: RadioListTile<Shift>(
+                            title: const Text("Right"),
+                            value: Shift.right,
+                            groupValue: direction,
+                            onChanged: (Shift? val) {
+                              setState(() {
+                                direction = val!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
                       width: double.maxFinite,
                       child: FilledButton(
                         onPressed: () {
                           Map<String, dynamic>? response =
-                              Cipher.encrypt.bash(input.text);
+                              Cipher.encrypt.caesar(
+                            direction,
+                            int.parse(shifts.text),
+                            input.text,
+                          );
                           if (response?["status"] == STATUS.OK) {
                             setState(() {
                               _changeable = response?["optional"];

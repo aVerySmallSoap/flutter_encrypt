@@ -104,8 +104,9 @@ class _ConversionPageState extends State<ConversionPage> {
                         child: Column(
                           children: [
                             CipherButton(
-                              action: () =>
-                                  Navigator.of(context).pushNamed('/bash'),
+                              action: () => {
+                                Navigator.of(context).pushNamed('/bash'),
+                              },
                               text: "@Bash",
                               desc:
                                   "Cipher your text using a reversed alphabet table",
@@ -118,7 +119,9 @@ class _ConversionPageState extends State<ConversionPage> {
                               ),
                             ),
                             CipherButton(
-                              action: () {},
+                              action: () => {
+                                Navigator.of(context).pushNamed('/caesar'),
+                              },
                               text: "Caesar",
                               desc:
                                   "Cipher your text by shifting the alphabet to the left or right",
