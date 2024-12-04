@@ -22,6 +22,9 @@ class _CaesarPageState extends State<CaesarPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (Session.user == null) {
+      Navigator.popAndPushNamed(context, '/login');
+    }
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

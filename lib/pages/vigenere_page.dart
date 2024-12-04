@@ -18,6 +18,9 @@ class _VigenerePageState extends State<VigenerePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (Session.user == null) {
+      Navigator.popAndPushNamed(context, '/login');
+    }
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

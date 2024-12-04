@@ -4,6 +4,8 @@ import 'package:test_app/pages/conversion_page.dart';
 import 'package:test_app/pages/history_page.dart';
 import 'package:test_app/pages/settings_page.dart';
 
+import '../api/session.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -28,6 +30,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (Session.user == null) {
+      Navigator.popAndPushNamed(context, '/login');
+    }
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
