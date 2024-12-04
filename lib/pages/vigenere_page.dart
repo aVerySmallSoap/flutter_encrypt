@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/api/session.dart';
 
-import '../api/returnable.dart';
 import '../api/cipher.dart';
+import '../api/returnable.dart';
+import '../api/session.dart';
 
-class AtBashPage extends StatefulWidget {
-  const AtBashPage({
-    super.key,
-  });
+class VigenerePage extends StatefulWidget {
+  const VigenerePage({super.key});
 
   @override
-  State<AtBashPage> createState() => _AtBashPageState();
+  State<StatefulWidget> createState() => _VigenerePageState();
 }
 
-class _AtBashPageState extends State<AtBashPage> {
+class _VigenerePageState extends State<VigenerePage> {
   String _changeable = "";
   TextEditingController input = TextEditingController();
+  final TextEditingController _key = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +27,10 @@ class _AtBashPageState extends State<AtBashPage> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(240, 96, 96, 1),
-                  Color.fromRGBO(245, 125, 90, 1),
-                  Color.fromRGBO(245, 153, 90, 1),
-                  Color.fromRGBO(243, 180, 98, 1),
+                  Color.fromRGBO(141, 191, 179, 1),
+                  Color.fromRGBO(158, 181, 149, 1),
+                  Color.fromRGBO(179, 168, 136, 1),
+                  Color.fromRGBO(191, 141, 152, 1),
                 ],
                 transform: GradientRotation(240),
               ),
@@ -54,7 +53,7 @@ class _AtBashPageState extends State<AtBashPage> {
                     margin: EdgeInsets.all(8),
                     padding: EdgeInsets.all(4),
                     child: Text(
-                      "@Bash",
+                      "Vigenere",
                       style: TextStyle(
                         fontFamily: "Antipasto",
                         fontSize: 48,
@@ -64,15 +63,17 @@ class _AtBashPageState extends State<AtBashPage> {
                       ),
                     ),
                   ),
-                  Text(
-                    _changeable,
-                    key: Key("bash_key"),
-                    overflow: TextOverflow.fade,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Antipasto",
-                      fontSize: 28,
-                      fontStyle: FontStyle.italic,
+                  Expanded(
+                    child: Text(
+                      _changeable,
+                      key: Key("vigenere_key"),
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Antipasto",
+                        fontSize: 28,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ),
                 ],
@@ -104,7 +105,18 @@ class _AtBashPageState extends State<AtBashPage> {
                       child: TextField(
                         controller: input,
                         decoration: InputDecoration(
-                          hintText: "Word",
+                          labelText: "Word",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: TextField(
+                        controller: _key,
+                        decoration: InputDecoration(
+                          labelText: "Key",
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                           ),
@@ -116,7 +128,7 @@ class _AtBashPageState extends State<AtBashPage> {
                       child: FilledButton(
                         onPressed: () {
                           Map<String, dynamic>? response =
-                              Cipher.encrypt.bash(input.text);
+                              Cipher.encrypt.vigenere(input.text, _key.text);
                           if (response?["status"] == STATUS.OK) {
                             setState(() {
                               _changeable = response?["optional"];

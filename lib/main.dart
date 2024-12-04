@@ -4,6 +4,7 @@ import 'package:test_app/pages/caesar_page.dart';
 import 'package:test_app/pages/home_page.dart';
 import 'package:test_app/pages/login_page.dart';
 import 'package:test_app/pages/register_page.dart';
+import 'package:test_app/pages/vigenere_page.dart';
 
 import 'api/database.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           '/register': (context) => RegisterPage(),
           '/bash': (context) => AtBashPage(),
           '/caesar': (context) => CaesarPage(),
+          '/vigenere': (context) => VigenerePage(),
         });
   }
 }

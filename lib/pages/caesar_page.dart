@@ -72,7 +72,7 @@ class _CaesarPageState extends State<CaesarPage> {
                   Expanded(
                     child: Text(
                       _changeable,
-                      key: Key("bash_key"),
+                      key: Key("caesar_key"),
                       overflow: TextOverflow.fade,
                       style: TextStyle(
                         color: Colors.black,
@@ -178,7 +178,7 @@ class _CaesarPageState extends State<CaesarPage> {
                             });
                           }
                         },
-                        child: Text("Cipher"),
+                        child: Text("Encode"),
                       ),
                     ),
                   ],

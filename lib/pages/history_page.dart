@@ -23,7 +23,11 @@ class _HistoryPageState extends State<HistoryPage> {
                 onPressed: () => Navigator.pop(context, false),
                 child: const Text("Stay")),
             TextButton(
-                onPressed: () => {Login.logout(), Navigator.pop(context, true)},
+                onPressed: () => {
+                      Login.logout(),
+                      Navigator.pop(context),
+                      Navigator.popAndPushNamed(context, '/login')
+                    },
                 child: const Text("Logout"))
           ],
         );

@@ -3,10 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:test_app/api/login.dart';
 import 'package:test_app/components/cipher_button.dart';
 
-import '../api/returnable.dart';
-import '../api/session.dart';
-import '../api/cipher.dart';
-
 class ConversionPage extends StatefulWidget {
   const ConversionPage({super.key});
 
@@ -15,24 +11,6 @@ class ConversionPage extends StatefulWidget {
 }
 
 class _ConversionPageState extends State<ConversionPage> {
-  final TextEditingController inputController = TextEditingController();
-  final TextEditingController outputController = TextEditingController();
-
-  void convert() {
-    Map<String, dynamic>? response = Cipher.encrypt.bash(inputController.text);
-    if (outputController.text.isNotEmpty && response?["status"] == STATUS.OK) {
-      Session.user?.addHistory(outputController.text);
-      outputController.clear();
-      outputController.text = response!["optional"].toString();
-      return;
-    }
-    if (response?["status"] == STATUS.OK) {
-      outputController.text = response!["optional"].toString();
-      Session.user?.addHistory(outputController.text);
-    }
-    return;
-  }
-
   Future<bool?> _showLogoutDialog() {
     return showDialog<bool>(
       context: context,
@@ -45,7 +23,11 @@ class _ConversionPageState extends State<ConversionPage> {
                 onPressed: () => Navigator.pop(context, false),
                 child: const Text("Stay")),
             TextButton(
-                onPressed: () => {Login.logout(), Navigator.pop(context, true)},
+                onPressed: () => {
+                      Login.logout(),
+                      Navigator.pop(context),
+                      Navigator.popAndPushNamed(context, '/login')
+                    },
                 child: const Text("Logout"))
           ],
         );
@@ -134,7 +116,9 @@ class _ConversionPageState extends State<ConversionPage> {
                               ),
                             ),
                             CipherButton(
-                              action: () {},
+                              action: () => {
+                                Navigator.of(context).pushNamed('/vigenere'),
+                              },
                               text: "Vigenere",
                               desc: "Cipher your text by using a key",
                               image: AssetImage("assets/images/w_key.png"),
