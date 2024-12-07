@@ -3,13 +3,13 @@ import 'package:test_app/api/user.dart';
 import 'crumbs.dart';
 
 class Session {
-  int id;
+  String name;
   User? user;
   DateTime sessionDate;
   int crumbID = 0;
   Map<int, Crumbs> localCrumbs = {};
 
-  Session({required this.id, required this.user, required this.sessionDate});
+  Session({required this.name, required this.user, required this.sessionDate});
 
   void sprinkle(Object o) {
     Crumbs c = Crumbs(

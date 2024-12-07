@@ -4,35 +4,33 @@ import '../user.dart';
 
 class SessionManager {
   SessionManager._();
-  int assignable = 0;
-  Map<int, Session> sessionStorage = {};
+  Map<String, Session> sessionStorage = {};
   static final SessionManager instance = SessionManager._();
 
-  void createSession([User? user]) {
+  void createSession(String key, [User? user]) {
     Session s = Session(
-      id: assignable,
+      name: key,
       user: user,
       sessionDate: DateTime.now(),
     );
-    sessionStorage.addEntries({MapEntry(assignable, s)});
-    ++assignable;
+    sessionStorage.addEntries({MapEntry(key, s)});
     return;
   }
 
-  void invalidateSession(int id) {
-    sessionStorage.remove(id);
+  void invalidateSession(String key) {
+    sessionStorage.remove(key);
     return;
   }
 
-  bool validateSession(int id) {
-    return sessionStorage.containsKey(id); //Simpler implementation
+  bool validateSession(String key) {
+    return sessionStorage.containsKey(key); //Simpler implementation
   }
 
-  Map<int, Session> getSessions() {
+  Map<String, Session> getSessions() {
     return sessionStorage;
   }
 
-  Session? getSession(int id) {
-    return sessionStorage[id];
+  Session? getSession(String key) {
+    return sessionStorage[key];
   }
 }
