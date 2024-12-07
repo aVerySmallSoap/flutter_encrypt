@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/api/session.dart';
+import 'package:test_app/api/sessions/session_manager.dart';
 
 import '../api/returnable.dart';
 import '../api/cipher.dart';
@@ -19,7 +19,7 @@ class _AtBashPageState extends State<AtBashPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Session.user == null) {
+    if (SessionManager.instance.validateSession(0)) {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(
@@ -123,7 +123,10 @@ class _AtBashPageState extends State<AtBashPage> {
                           if (response?["status"] == STATUS.OK) {
                             setState(() {
                               _changeable = response?["optional"];
-                              Session.user?.addHistory(response?["optional"]);
+                              SessionManager.instance
+                                  .getSession(0)
+                                  ?.user
+                                  ?.addHistory(response?["optional"]);
                             });
                           }
                         },

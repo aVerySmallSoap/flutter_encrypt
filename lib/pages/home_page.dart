@@ -3,8 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:test_app/pages/conversion_page.dart';
 import 'package:test_app/pages/history_page.dart';
 import 'package:test_app/pages/settings_page.dart';
-
-import '../api/session.dart';
+import '../api/sessions/session_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,7 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Session.user == null) {
+    if (SessionManager.instance.validateSession(0)) {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(

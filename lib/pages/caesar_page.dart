@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../api/cipher.dart';
 import '../api/returnable.dart';
-import '../api/session.dart';
+import '../api/sessions/session_manager.dart';
 
 class CaesarPage extends StatefulWidget {
   const CaesarPage({
@@ -22,7 +22,7 @@ class _CaesarPageState extends State<CaesarPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Session.user == null) {
+    if (SessionManager.instance.validateSession(0)) {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(
@@ -175,7 +175,10 @@ class _CaesarPageState extends State<CaesarPage> {
                           if (response?["status"] == STATUS.OK) {
                             setState(() {
                               _changeable = response?["optional"];
-                              Session.user?.addHistory(response?["optional"]);
+                              SessionManager.instance
+                                  .getSession(0)
+                                  ?.user
+                                  ?.addHistory(response?["optional"]);
                             });
                           }
                         },

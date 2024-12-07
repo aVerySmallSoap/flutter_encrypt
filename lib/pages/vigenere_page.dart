@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../api/cipher.dart';
 import '../api/returnable.dart';
-import '../api/session.dart';
+import '../api/sessions/session_manager.dart';
 
 class VigenerePage extends StatefulWidget {
   const VigenerePage({super.key});
@@ -18,7 +18,7 @@ class _VigenerePageState extends State<VigenerePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Session.user == null) {
+    if (SessionManager.instance.validateSession(0)) {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(
@@ -135,7 +135,10 @@ class _VigenerePageState extends State<VigenerePage> {
                           if (response?["status"] == STATUS.OK) {
                             setState(() {
                               _changeable = response?["optional"];
-                              Session.user?.addHistory(response?["optional"]);
+                              SessionManager.instance
+                                  .getSession(0)
+                                  ?.user
+                                  ?.addHistory(response?["optional"]);
                             });
                           }
                         },

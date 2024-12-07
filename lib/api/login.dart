@@ -1,5 +1,5 @@
 import 'package:test_app/api/returnable.dart';
-import 'package:test_app/api/session.dart';
+import 'package:test_app/api/sessions/session_manager.dart';
 
 import 'database.dart';
 
@@ -13,7 +13,7 @@ class Login {
       Database.table.forEach((k, v) {
         if (username == k && password == v.getPassword()) {
           logged = true;
-          SessionBuilder.initSession(v);
+          SessionManager.instance.createSession(v);
           return;
         }
       });
@@ -29,8 +29,8 @@ class Login {
   }
 
   static void logout() {
+    SessionManager.instance.invalidateSession(0);
     Database.exit();
-    SessionBuilder.invalidateSession();
     return;
   }
 }

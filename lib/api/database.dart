@@ -2,10 +2,9 @@ import 'dart:collection';
 import 'dart:io';
 import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
-import 'package:test_app/api/session.dart';
+import 'package:test_app/api/sessions/session_manager.dart';
 import 'package:test_app/api/user.dart';
 
-//TODO: Convert into API calls that returns something
 class Database {
   static File? _file;
   static List<dynamic>? _users = [];
@@ -13,9 +12,16 @@ class Database {
 
   static Future<File> getJSON() async {
     try {
-      Directory? dir = await getApplicationDocumentsDirectory();
-      return File('${dir.path}/users.json');
+      if (Platform.isAndroid) {
+        Directory? dir = await getApplicationDocumentsDirectory();
+        return File('${dir.path}/users.json');
+      } else {
+        return File('./lib/db/users.json');
+      }
     } catch (e) {
+      stdout.writeln(
+          "Something happened and we don't know what! ${e.runtimeType}");
+      stdout.writeln("Defaulting to relative storage...");
       return File('./lib/db/users.json');
     }
   }
@@ -42,7 +48,8 @@ class Database {
       }
       return;
     } catch (e) {
-      stdout.write("File not found! Creating file"); // log this line
+      stdout.writeln("${e.runtimeType}");
+      stdout.writeln("Something went wrong."); // log this line
     }
     return;
   }
@@ -60,12 +67,13 @@ class Database {
   }
 
   static void exit() {
+    User? temp = SessionManager.instance.getSession(0)?.user;
     if (_users!.isNotEmpty) {
       _users?.clear();
     }
     table.forEach((k, v) {
-      if (k == Session.user?.username) {
-        v = Session.user!;
+      if (k == temp?.username) {
+        v = temp!;
       }
       _users?.add(v.toJson());
     });
