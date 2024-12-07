@@ -67,7 +67,7 @@ class Database {
   }
 
   static void exit() {
-    User? temp = SessionManager.instance.getSession(0)?.user;
+    User? temp = SessionManager.instance.getSession("user")?.user;
     if (_users!.isNotEmpty) {
       _users?.clear();
     }

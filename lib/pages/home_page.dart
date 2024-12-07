@@ -22,15 +22,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   final List<Widget> _pages = [
-    ConversionPage(),
+    const ConversionPage(),
     const HistoryPage(),
     const SettingsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    if (SessionManager.instance.validateSession(0)) {
-      Navigator.popAndPushNamed(context, '/login');
+    if (!SessionManager.instance.validateSession("user")) {
+      Navigator.of(context).pushNamed('/login');
     }
     return Scaffold(
       body: _pages[_selectedIndex],

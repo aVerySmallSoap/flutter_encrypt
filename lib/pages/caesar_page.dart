@@ -22,7 +22,7 @@ class _CaesarPageState extends State<CaesarPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (SessionManager.instance.validateSession(0)) {
+    if (!SessionManager.instance.validateSession("user")) {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(
@@ -176,7 +176,7 @@ class _CaesarPageState extends State<CaesarPage> {
                             setState(() {
                               _changeable = response?["optional"];
                               SessionManager.instance
-                                  .getSession(0)
+                                  .getSession("user")
                                   ?.user
                                   ?.addHistory(response?["optional"]);
                             });

@@ -19,7 +19,7 @@ class _AtBashPageState extends State<AtBashPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (SessionManager.instance.validateSession(0)) {
+    if (!SessionManager.instance.validateSession("user")) {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(
@@ -124,7 +124,7 @@ class _AtBashPageState extends State<AtBashPage> {
                             setState(() {
                               _changeable = response?["optional"];
                               SessionManager.instance
-                                  .getSession(0)
+                                  .getSession("user")
                                   ?.user
                                   ?.addHistory(response?["optional"]);
                             });

@@ -11,13 +11,13 @@ class LoginPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void signIn(BuildContext context) {
+  void signIn(BuildContext context) async {
     final username = usernameController.text;
     final password = passwordController.text;
 
-    Map<String, dynamic>? response = Login.login(username, password);
+    Map<String, dynamic>? response = await Login.login(username, password);
+    if (!context.mounted) return;
     if (response?["status"] == STATUS.OK) {
-      Navigator.of(context).pop();
       Navigator.of(context).pushNamed('/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -105,7 +105,8 @@ class LoginPage extends StatelessWidget {
                     const Text("No account? "),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/register');
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushNamed('/register');
                       },
                       child: const Text(
                         "Register here!",

@@ -4,7 +4,8 @@ import 'package:test_app/api/sessions/session_manager.dart';
 import 'database.dart';
 
 class Login {
-  static Map<String, dynamic>? login(String username, String password) {
+  static Future<Map<String, dynamic>?> login(
+      String username, String password) async {
     if (username == "" && password == "") {
       return JSON(400, STATUS.badRequest, "Fill out all the fields!").build();
     }
@@ -13,7 +14,7 @@ class Login {
       Database.table.forEach((k, v) {
         if (username == k && password == v.getPassword()) {
           logged = true;
-          SessionManager.instance.createSession(v);
+          SessionManager.instance.createSession("user", v);
           return;
         }
       });
@@ -29,7 +30,7 @@ class Login {
   }
 
   static void logout() {
-    SessionManager.instance.invalidateSession(0);
+    SessionManager.instance.invalidateSession("user");
     Database.exit();
     return;
   }

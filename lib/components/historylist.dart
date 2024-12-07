@@ -10,7 +10,7 @@ class HistoryList extends StatefulWidget {
 }
 
 class _HistoryListState extends State<HistoryList> {
-  final User? _user = SessionManager.instance.getSession(0)?.user;
+  final User? _user = SessionManager.instance.getSession("user")?.user;
 
   @override
   Widget build(BuildContext context) {
