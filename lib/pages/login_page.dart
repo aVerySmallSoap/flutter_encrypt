@@ -105,7 +105,6 @@ class LoginPage extends StatelessWidget {
                     const Text("No account? "),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
                         Navigator.of(context).pushNamed('/register');
                       },
                       child: const Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/components/forms/registration_form.dart';
 import 'package:test_app/components/mybutton.dart';
 import 'package:test_app/components/mytextfield.dart';
 
@@ -39,67 +40,28 @@ class RegisterPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50),
-
                 // logo
                 const Icon(
                   Icons.create,
                   size: 100,
                   color: Color.fromARGB(255, 6, 139, 248),
                 ),
-
                 const SizedBox(height: 50),
-
                 // some text
                 Text('Create an account!',
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,
                     )),
-
                 const SizedBox(height: 25),
-                // username field
-                MyTextField(
-                  controller: usernameController,
-                  hintText: 'Username',
-                  obscureText: false,
-                ),
-                // password field
-                const SizedBox(height: 10),
-                MyTextField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                ),
-                // confirm password field
-                const SizedBox(height: 10),
-                MyTextField(
-                  controller: confirmPasswordController,
-                  hintText: 'Confirm Password',
-                  obscureText: true,
-                ),
+                RegisterForm(),
                 const SizedBox(height: 25),
-                // register button
-                MyButton(
-                  onTap: () {
-                    registerUser(context);
-                  },
-                  text: const Text(
-                    'Register',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                // go to login page text
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text("Already have an account? "),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
                         Navigator.of(context).pushNamed('/login');
                       },
                       child: const Text(
