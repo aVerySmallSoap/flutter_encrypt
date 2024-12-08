@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/api/registration.dart';
 
-import '../../api/login.dart';
+import '../../api/returnable.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -17,6 +17,19 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _confirm = TextEditingController();
   bool _submitted = false;
 
+  void registerUser(BuildContext context) async {
+    Map<String, dynamic>? response =
+        await Registration.register(_username.text, _password.text);
+    if (!context.mounted) return;
+    if (response?["status"] == STATUS.OK) {
+      Navigator.pushNamed(context, '/login');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response?["message"])),
+      );
+    }
+  }
+
   // Text errors
   String? _textUsername() {
     if (_username.text.isEmpty) {
@@ -29,11 +42,32 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   String? _textPassword() {
+    bool hasDigit = false;
+    bool hasSpecial = false;
+    List<int> chars = _password.text.codeUnits;
+    for (var i = 0; i < chars.length; ++i) {
+      if (chars[i] == 48 || chars[i] <= 57) {
+        hasDigit = true;
+      }
+      // special characters: !-/ | :-@ | [-` | {-~ ; utf-16
+      if ((chars[i] >= 33 && chars[i] <= 47) ||
+          (chars[i] >= 58 && chars[i] <= 64) ||
+          (chars[i] >= 91 && chars[i] <= 96) ||
+          (chars[i] >= 123 && chars[i] <= 126)) {
+        hasSpecial = true;
+      }
+    }
+
     if (_password.text.isEmpty) {
       return "Field can't be empty";
     }
     if (_password.text.length < 8) {
       return "Password must be at least 8 characters long";
+    }
+    if (!(hasDigit && hasSpecial)) {
+      hasDigit = false;
+      hasSpecial = false;
+      return "Password must contain at least 1 digit and 1 special character";
     }
     return null;
   }
@@ -42,7 +76,7 @@ class _RegisterFormState extends State<RegisterForm> {
     if (_confirm.text.isEmpty) {
       return "Field can't be empty";
     }
-    if (_password.text == _confirm.text) {
+    if (_confirm.text != _password.text) {
       return "Password must match";
     }
     return null;
@@ -154,13 +188,12 @@ class _RegisterFormState extends State<RegisterForm> {
               margin: EdgeInsets.only(top: 18),
               width: double.maxFinite,
               child: FilledButton(
-                onPressed: () {
-                  bool con = _formKey.currentState!.validate();
-                  if (con) {
-                    Registration.register(_username.text, _password.text);
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    registerUser(context);
                   } else {
                     setState(() {
-                      _submitted = true;
+                      // _submitted = true;
                     });
                   }
                 },
