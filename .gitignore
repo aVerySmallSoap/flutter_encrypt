@@ -45,3 +45,4 @@ app.*.map.json
 #custom
 /lib/db/users.json
 /lib/test.dart
+/.vscode/
