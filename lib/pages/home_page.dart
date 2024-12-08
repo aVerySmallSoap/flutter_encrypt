@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     const ConversionPage(),
     const HistoryPage(),
-    const SettingsPage(),
   ];
 
   @override
@@ -49,8 +48,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 10),
           child: GNav(
             gap: 4,
             color: Colors.blue,
@@ -66,10 +65,6 @@ class _HomePageState extends State<HomePage> {
               GButton(
                 icon: Icons.history,
                 text: 'History',
-              ),
-              GButton(
-                icon: Icons.settings,
-                text: 'Settings',
               )
             ],
           ),
