@@ -29,9 +29,8 @@ class _AtBashPageState extends State<AtBashPage> {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 128),
+          SizedBox(height: 24),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -104,49 +103,51 @@ class _AtBashPageState extends State<AtBashPage> {
               ),
               child: Container(
                 padding: EdgeInsets.only(top: 32, left: 32, right: 32),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(bottom: 18),
-                      child: TextField(
-                        controller: input,
-                        decoration: InputDecoration(
-                          hintText: "Word",
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(bottom: 18),
+                        child: TextField(
+                          controller: input,
+                          decoration: InputDecoration(
+                            hintText: "Word",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: double.maxFinite,
-                      child: FilledButton(
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(
-                            Color.fromRGBO(240, 96, 96, 1),
+                      Container(
+                        width: double.maxFinite,
+                        child: FilledButton(
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(
+                              Color.fromRGBO(240, 96, 96, 1),
+                            ),
                           ),
+                          onPressed: () {
+                            Map<String, dynamic>? response =
+                                Cipher.encrypt.bash(input.text);
+                            if (response?["status"] == STATUS.OK) {
+                              setState(() {
+                                _changeable = response?["optional"];
+                                SessionManager.instance
+                                    .getSession("user")
+                                    ?.user
+                                    ?.addHistory(response?["optional"]);
+                              });
+                            }
+                          },
+                          child: Text("Encode"),
                         ),
-                        onPressed: () {
-                          Map<String, dynamic>? response =
-                              Cipher.encrypt.bash(input.text);
-                          if (response?["status"] == STATUS.OK) {
-                            setState(() {
-                              _changeable = response?["optional"];
-                              SessionManager.instance
-                                  .getSession("user")
-                                  ?.user
-                                  ?.addHistory(response?["optional"]);
-                            });
-                          }
-                        },
-                        child: Text("Encode"),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
