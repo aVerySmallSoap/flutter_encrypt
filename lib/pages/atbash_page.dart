@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/api/sessions/session_manager.dart';
 
-import '../api/returnable.dart';
 import '../api/cipher.dart';
+import '../api/returnable.dart';
 
 class AtBashPage extends StatefulWidget {
   const AtBashPage({
@@ -23,6 +23,11 @@ class _AtBashPageState extends State<AtBashPage> {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () => Navigator.popAndPushNamed(context, "/home"),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -73,9 +78,8 @@ class _AtBashPageState extends State<AtBashPage> {
                     overflow: TextOverflow.fade,
                     style: TextStyle(
                       color: Colors.black,
-                      fontFamily: "Antipasto",
+                      fontFamily: "Courier New",
                       fontSize: 28,
-                      fontStyle: FontStyle.italic,
                     ),
                   ),
                 ],
@@ -117,6 +121,11 @@ class _AtBashPageState extends State<AtBashPage> {
                     Container(
                       width: double.maxFinite,
                       child: FilledButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                            Color.fromRGBO(240, 96, 96, 1),
+                          ),
+                        ),
                         onPressed: () {
                           Map<String, dynamic>? response =
                               Cipher.encrypt.bash(input.text);
