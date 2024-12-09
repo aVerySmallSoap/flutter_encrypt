@@ -15,7 +15,7 @@ class _HistoryListState extends State<HistoryList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 16, right: 16),
+      margin: EdgeInsets.only(top: 24),
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: _user!.getHistory().length,
@@ -23,10 +23,23 @@ class _HistoryListState extends State<HistoryList> {
         itemBuilder: (context, index) {
           final String entry = _user.getHistory()[index];
           return Container(
-              color: Colors.lightBlueAccent,
+              color: Color.fromRGBO(242, 235, 191, 1),
               child: Dismissible(
                 key: Key(entry),
-                background: Container(color: Colors.red),
+                background: Container(
+                  color: Color.fromRGBO(240, 96, 96, 1),
+                  padding: EdgeInsets.only(left: 8),
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+                direction: DismissDirection.startToEnd,
+                dismissThresholds: {
+                  DismissDirection.startToEnd: 0.8,
+                },
                 onDismissed: (direction) {
                   setState(() {
                     _user.getHistory().removeAt(index);
@@ -37,6 +50,10 @@ class _HistoryListState extends State<HistoryList> {
                 child: ListTile(
                   title: Text(
                     _user.getHistory()[index],
+                    style: TextStyle(
+                      fontFamily: "Antipasto",
+                      fontSize: 24,
+                    ),
                   ),
                 ),
               ));
