@@ -70,7 +70,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         "History",
                         style: GoogleFonts.openSans(
                           color: Colors.white,
-                          fontSize: 32,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
