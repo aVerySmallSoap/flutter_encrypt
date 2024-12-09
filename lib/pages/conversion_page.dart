@@ -69,69 +69,73 @@ class _ConversionPageState extends State<ConversionPage> {
                         "Conversion",
                         style: GoogleFonts.openSans(
                           color: Colors.white,
-                          fontSize: 32,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(32),
-                            topRight: Radius.circular(32),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(32),
+                              topRight: Radius.circular(32),
+                            ),
                           ),
-                        ),
-                        child: Column(
-                          children: [
-                            CipherButton(
-                              action: () => {
-                                Navigator.of(context).pushNamed('/bash'),
-                              },
-                              text: "@Bash",
-                              desc:
-                                  "Cipher your text using a reversed alphabet table",
-                              image: AssetImage("assets/images/w_email.png"),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(240, 96, 96, 1),
-                                  Color.fromRGBO(240, 96, 96, 1),
-                                ],
-                              ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                CipherButton(
+                                  action: () => {
+                                    Navigator.of(context).pushNamed('/bash'),
+                                  },
+                                  text: "@Bash",
+                                  desc:
+                                      "Cipher your text using a reversed alphabet table",
+                                  image:
+                                      AssetImage("assets/images/w_email.png"),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromRGBO(240, 96, 96, 1),
+                                      Color.fromRGBO(240, 96, 96, 1),
+                                    ],
+                                  ),
+                                ),
+                                CipherButton(
+                                  action: () => {
+                                    Navigator.of(context).pushNamed('/caesar'),
+                                  },
+                                  text: "Caesar",
+                                  desc:
+                                      "Cipher your text by shifting the alphabet to the left or right",
+                                  image:
+                                      AssetImage("assets/images/w_caesar.png"),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromRGBO(243, 181, 98, 1),
+                                      Color.fromRGBO(243, 181, 98, 1),
+                                    ],
+                                  ),
+                                ),
+                                CipherButton(
+                                  action: () => {
+                                    Navigator.of(context)
+                                        .pushNamed('/vigenere'),
+                                  },
+                                  text: "Vigenere",
+                                  desc: "Cipher your text by using a key",
+                                  image: AssetImage("assets/images/w_key.png"),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromRGBO(140, 190, 178, 1),
+                                      Color.fromRGBO(140, 190, 178, 1),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            CipherButton(
-                              action: () => {
-                                Navigator.of(context).pushNamed('/caesar'),
-                              },
-                              text: "Caesar",
-                              desc:
-                                  "Cipher your text by shifting the alphabet to the left or right",
-                              image: AssetImage("assets/images/w_caesar.png"),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(243, 181, 98, 1),
-                                  Color.fromRGBO(243, 181, 98, 1),
-                                ],
-                              ),
-                            ),
-                            CipherButton(
-                              action: () => {
-                                Navigator.of(context).pushNamed('/vigenere'),
-                              },
-                              text: "Vigenere",
-                              desc: "Cipher your text by using a key",
-                              image: AssetImage("assets/images/w_key.png"),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(140, 190, 178, 1),
-                                  Color.fromRGBO(140, 190, 178, 1),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                          )),
                     )
                   ],
                 ),
