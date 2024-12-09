@@ -46,3 +46,4 @@ app.*.map.json
 /lib/db/users.json
 /lib/test.dart
 /.vscode/
+macos/Flutter/GeneratedPluginRegistrant.swift
