@@ -54,64 +54,90 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             Container(
               margin: EdgeInsets.only(top: 8, bottom: 8),
-              child: ValueListenableBuilder(
-                valueListenable: _username,
-                builder: (context, value, child) {
-                  return TextFormField(
-                    controller: _username,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) => _textUsername(),
-                    cursorColor: Colors.blue,
-                    decoration: InputDecoration(
-                      labelText: "Username",
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      floatingLabelStyle: TextStyle(color: Colors.blue),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      errorText: _submitted ? _textUsername() : null,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.2),
+                      blurStyle: BlurStyle.outer,
+                      blurRadius: 4,
                     ),
-                  );
-                },
+                  ],
+                ),
+                child: ValueListenableBuilder(
+                  valueListenable: _username,
+                  builder: (context, value, child) {
+                    return TextFormField(
+                      controller: _username,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) => _textUsername(),
+                      cursorColor: Colors.blue,
+                      decoration: InputDecoration(
+                        labelText: "Username",
+                        fillColor: Colors.white38,
+                        filled: true,
+                        floatingLabelStyle: TextStyle(color: Colors.blue),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white38,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blue,
+                          ),
+                        ),
+                        errorText: _submitted ? _textUsername() : null,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 8, bottom: 8),
-              child: ValueListenableBuilder(
-                valueListenable: _password,
-                builder: (context, value, child) {
-                  return TextFormField(
-                    controller: _password,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    obscureText: true,
-                    validator: (value) => _textPassword(),
-                    cursorColor: Colors.blue,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      floatingLabelStyle: TextStyle(color: Colors.blue),
-                      hintStyle: TextStyle(color: Colors.blue),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      errorText: _submitted ? _textUsername() : null,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.2),
+                      blurStyle: BlurStyle.outer,
+                      blurRadius: 4,
                     ),
-                  );
-                },
+                  ],
+                ),
+                child: ValueListenableBuilder(
+                  valueListenable: _password,
+                  builder: (context, value, child) {
+                    return TextFormField(
+                      controller: _password,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      obscureText: true,
+                      validator: (value) => _textPassword(),
+                      cursorColor: Colors.blue,
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                        fillColor: Colors.white38,
+                        filled: true,
+                        floatingLabelStyle: TextStyle(color: Colors.blue),
+                        hintStyle: TextStyle(color: Colors.blue),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white38,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blue,
+                          ),
+                        ),
+                        errorText: _submitted ? _textUsername() : null,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Container(
