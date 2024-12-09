@@ -97,29 +97,5 @@ class _HistoryPageState extends State<HistoryPage> {
           ],
         ),
       ),
-    );
-
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: const Text(
-          'History',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.black,
-        automaticallyImplyLeading: false,
-      ),
-      body: PopScope<Object?>(
-        canPop: false,
-        onPopInvokedWithResult: (bool didPop, Object? result) async {
-          if (didPop) return;
-          final bool shouldPop = await _showLogoutDialog() ?? false;
-          if (context.mounted && shouldPop) Navigator.pop(context);
-        },
-        child: HistoryList(),
-      ),
-    );
-  }
+    );  }
 }
