@@ -22,6 +22,11 @@ class _VigenerePageState extends State<VigenerePage> {
       Navigator.popAndPushNamed(context, '/login');
     }
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () => Navigator.popAndPushNamed(context, "/home"),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -73,9 +78,8 @@ class _VigenerePageState extends State<VigenerePage> {
                       overflow: TextOverflow.fade,
                       style: TextStyle(
                         color: Colors.black,
-                        fontFamily: "Antipasto",
+                        fontFamily: "Courier New",
                         fontSize: 28,
-                        fontStyle: FontStyle.italic,
                       ),
                     ),
                   ),
@@ -116,6 +120,7 @@ class _VigenerePageState extends State<VigenerePage> {
                       ),
                     ),
                     Container(
+                      padding: EdgeInsets.only(bottom: 18),
                       child: TextField(
                         controller: _key,
                         decoration: InputDecoration(
@@ -129,6 +134,11 @@ class _VigenerePageState extends State<VigenerePage> {
                     Container(
                       width: double.maxFinite,
                       child: FilledButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                            Color.fromRGBO(141, 191, 179, 1),
+                          ),
+                        ),
                         onPressed: () {
                           Map<String, dynamic>? response =
                               Cipher.encrypt.vigenere(input.text, _key.text);

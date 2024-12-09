@@ -55,15 +55,6 @@ class _LoginFormState extends State<LoginForm> {
             Container(
               margin: EdgeInsets.only(top: 8, bottom: 8),
               child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.2),
-                      blurStyle: BlurStyle.outer,
-                      blurRadius: 4,
-                    ),
-                  ],
-                ),
                 child: ValueListenableBuilder(
                   valueListenable: _username,
                   builder: (context, value, child) {
@@ -98,15 +89,6 @@ class _LoginFormState extends State<LoginForm> {
             Container(
               margin: EdgeInsets.only(top: 8, bottom: 8),
               child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.2),
-                      blurStyle: BlurStyle.outer,
-                      blurRadius: 4,
-                    ),
-                  ],
-                ),
                 child: ValueListenableBuilder(
                   valueListenable: _password,
                   builder: (context, value, child) {

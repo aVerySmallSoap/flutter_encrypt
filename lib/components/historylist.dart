@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/api/sessions/session_manager.dart';
+
 import '../api/user.dart';
 
 class HistoryList extends StatefulWidget {
@@ -19,13 +20,13 @@ class _HistoryListState extends State<HistoryList> {
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: _user!.getHistory().length,
-        separatorBuilder: (context, index) => const Divider(),
+        separatorBuilder: (context, index) => Divider(),
         itemBuilder: (context, index) {
           final String entry = _user.getHistory()[index];
           return Container(
               color: Color.fromRGBO(242, 235, 191, 1),
               child: Dismissible(
-                key: Key(entry),
+                key: UniqueKey(),
                 background: Container(
                   color: Color.fromRGBO(240, 96, 96, 1),
                   padding: EdgeInsets.only(left: 8),
