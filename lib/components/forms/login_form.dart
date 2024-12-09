@@ -18,7 +18,7 @@ class _LoginFormState extends State<LoginForm> {
 
   void signIn(BuildContext context) async {
     Map<String, dynamic>? response =
-        await Login.login(_username.text, _password.text);
+        await Login.login(_username.text.trim(), _password.text.trim());
     if (!context.mounted) return;
     if (response?["status"] == STATUS.OK) {
       Navigator.of(context).pushNamed('/home');

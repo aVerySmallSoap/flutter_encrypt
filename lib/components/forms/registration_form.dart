@@ -18,8 +18,8 @@ class _RegisterFormState extends State<RegisterForm> {
   bool _submitted = false;
 
   void registerUser(BuildContext context) async {
-    Map<String, dynamic>? response =
-        await Registration.register(_username.text, _password.text);
+    Map<String, dynamic>? response = await Registration.register(
+        _username.text.trim(), _password.text.trim());
     if (!context.mounted) return;
     if (response?["status"] == STATUS.OK) {
       Navigator.pushNamed(context, '/login');
@@ -68,7 +68,7 @@ class _RegisterFormState extends State<RegisterForm> {
     if (!(hasDigit && hasSpecial)) {
       hasDigit = false;
       hasSpecial = false;
-      return "Password must contain at least 1 digit and 1 special character";
+      return "Must have at least 1 digit and 1 special character";
     }
     return null;
   }
