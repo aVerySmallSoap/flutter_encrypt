@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/components/forms/registration_form.dart';
-import 'package:test_app/components/mybutton.dart';
-import 'package:test_app/components/mytextfield.dart';
 
 import '../api/registration.dart';
 import '../api/returnable.dart';
