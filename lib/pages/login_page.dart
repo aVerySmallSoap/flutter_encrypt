@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/components/forms/login_form.dart';
 import 'package:test_app/components/mybutton.dart';
 import 'package:test_app/components/mytextfield.dart';
 
@@ -43,11 +44,7 @@ class LoginPage extends StatelessWidget {
                   size: 100,
                   color: Color.fromARGB(255, 6, 139, 248),
                 ),
-
                 const SizedBox(height: 50),
-
-                // some text
-
                 Text(
                   'Welcome back!',
                   style: TextStyle(
@@ -55,49 +52,9 @@ class LoginPage extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-
                 const SizedBox(height: 25),
-                // username field
-                MyTextField(
-                  controller: usernameController,
-                  hintText: 'Username',
-                  obscureText: false,
-                ),
-                // password field
-                const SizedBox(height: 10),
-                MyTextField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                ),
-
-                // forgor password
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text('Forgot Password?',
-                          style: TextStyle(color: Colors.grey[600])),
-                    ],
-                  ),
-                ),
-
+                LoginForm(),
                 const SizedBox(height: 25),
-                // sign in button
-
-                MyButton(
-                  onTap: () => signIn(context),
-                  text: const Text('Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-
-                const SizedBox(height: 25),
-
                 // register ?
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

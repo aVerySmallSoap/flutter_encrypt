@@ -1,84 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/api/registration.dart';
 
+import '../../api/login.dart';
 import '../../api/returnable.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
   @override
-  State<StatefulWidget> createState() => _RegisterFormState();
+  State<StatefulWidget> createState() => _LoginFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
-  final _formKey = GlobalKey<FormState>();
+class _LoginFormState extends State<LoginForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
-  final TextEditingController _confirm = TextEditingController();
   bool _submitted = false;
 
-  void registerUser(BuildContext context) async {
+  void signIn(BuildContext context) async {
     Map<String, dynamic>? response =
-        await Registration.register(_username.text, _password.text);
+        await Login.login(_username.text, _password.text);
     if (!context.mounted) return;
     if (response?["status"] == STATUS.OK) {
-      Navigator.pushNamed(context, '/login');
+      Navigator.of(context).pushNamed('/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(response?["message"])),
+        SnackBar(content: Text(response!["message"])),
       );
     }
   }
 
-  // Text errors
+  //String errors
   String? _textUsername() {
     if (_username.text.isEmpty) {
       return "Field can't be empty";
-    }
-    if (_username.text.length < 8) {
-      return "Username must be at least 8 characters long";
     }
     return null;
   }
 
   String? _textPassword() {
-    bool hasDigit = false;
-    bool hasSpecial = false;
-    List<int> chars = _password.text.codeUnits;
-    for (var i = 0; i < chars.length; ++i) {
-      // TODO: move to server
-      if (chars[i] == 48 || chars[i] <= 57) {
-        hasDigit = true;
-      }
-      // special characters: !-/ | :-@ | [-` | {-~ ; utf-16
-      if ((chars[i] >= 33 && chars[i] <= 47) ||
-          (chars[i] >= 58 && chars[i] <= 64) ||
-          (chars[i] >= 91 && chars[i] <= 96) ||
-          (chars[i] >= 123 && chars[i] <= 126)) {
-        hasSpecial = true;
-      }
-    }
-
     if (_password.text.isEmpty) {
       return "Field can't be empty";
-    }
-    if (_password.text.length < 8) {
-      return "Password must be at least 8 characters long";
-    }
-    if (!(hasDigit && hasSpecial)) {
-      hasDigit = false;
-      hasSpecial = false;
-      return "Password must contain at least 1 digit and 1 special character";
-    }
-    return null;
-  }
-
-  String? _textConfirm() {
-    if (_confirm.text.isEmpty) {
-      return "Field can't be empty";
-    }
-    if (_confirm.text != _password.text) {
-      return "Password must match";
     }
     return null;
   }
@@ -154,44 +115,12 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 8, bottom: 8),
-              child: ValueListenableBuilder(
-                valueListenable: _confirm,
-                builder: (context, value, child) {
-                  return TextFormField(
-                    controller: _confirm,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    obscureText: true,
-                    validator: (value) => _textConfirm(),
-                    cursorColor: Colors.blue,
-                    decoration: InputDecoration(
-                      labelText: "Confirm Password",
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      floatingLabelStyle: TextStyle(color: Colors.blue),
-                      hintStyle: TextStyle(color: Colors.blue),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      errorText: _submitted ? _textUsername() : null,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade400),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Container(
               margin: EdgeInsets.only(top: 18),
               width: double.maxFinite,
               child: FilledButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    registerUser(context);
+                    signIn(context);
                   } else {
                     setState(() {
                       _submitted = true;
@@ -207,7 +136,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                   ),
                 ),
-                child: Text("Register"),
+                child: Text("Login"),
               ),
             ),
           ],
