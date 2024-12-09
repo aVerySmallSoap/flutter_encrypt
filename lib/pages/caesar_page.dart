@@ -34,7 +34,7 @@ class _CaesarPageState extends State<CaesarPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 128),
+          SizedBox(height: 24),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
