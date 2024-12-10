@@ -1,6 +1,6 @@
 import 'package:test_app/api/returnable.dart';
-import 'package:test_app/utils/utility.dart';
 import 'package:test_app/utils/linked_List.dart';
+import 'package:test_app/utils/utility.dart';
 
 /// The shift direction of the `caesar` algorithm.
 enum Shift { left, right }
@@ -142,7 +142,7 @@ class Encrypt extends Translator {
       sum += 26;
       _sb.write(arr[sum]);
       return;
-    } else if (sum > 26) {
+    } else if (sum >= 26) {
       sum -= 26;
       _sb.write(arr[sum]);
       return;
@@ -246,7 +246,7 @@ class Decrypt extends Translator {
       sum += 26;
       _sb.write(arr[sum]);
       return;
-    } else if (sum > 26) {
+    } else if (sum >= 26) {
       sum -= 26;
       _sb.write(arr[sum]);
       return;
