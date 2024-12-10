@@ -124,7 +124,7 @@ class _AtBashPageState extends State<AtBashPage> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: double.maxFinite,
                           child: FilledButton(
                             style: ButtonStyle(

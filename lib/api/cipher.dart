@@ -35,8 +35,6 @@ abstract class Translator {
 /// Static utility class that enables the usage of [Encrypt] and [Decrypt].
 class Cipher {
   static final Encrypt encrypt = Encrypt();
-
-  @Deprecated('Use Cipher.encrypt instead')
   static final Decrypt decrypt = Decrypt();
 }
 
@@ -132,10 +130,10 @@ class Encrypt extends Translator {
       }
     }
 
-    String? cyphered = _sb.toString();
+    String? ciphered = _sb.toString();
     _sb.clear();
     return JSON(200, STATUS.OK, "text ciphered")
-        .addOptional(cyphered.toString())
+        .addOptional(ciphered.toString())
         .build();
   }
 
@@ -155,9 +153,6 @@ class Encrypt extends Translator {
   }
 }
 
-@Deprecated('Unused class')
-
-/// Decrypts incoming [Strings] based on a implemented algorithm.
 class Decrypt extends Translator {
   static final StringBuffer _sb = StringBuffer();
 
@@ -180,40 +175,84 @@ class Decrypt extends Translator {
 
   @override
   Map<String, dynamic>? caesar(Shift dir, int shift, String word) {
-    return JSON(500, STATUS.internalError, "Unknown method").build();
+    List<List<int>> resolved = Alphabets.stringToOrder(word);
+    List<int> order = resolved[0];
+    List<int> pos = resolved[1];
+    dir == Shift.left ? shift *= -1 : shift;
+    for (int i = 0; i < order.length; ++i) {
+      int sum = (pos[i] - shift) % 26;
+      if (order[i] == 32) {
+        _sb.write(" ");
+        continue;
+      } else if (order[i] == 1) {
+        _sb.write(Alphabets.upper_ordered[sum]);
+        continue;
+      } else if (order[i] == 2) {
+        _sb.write(Alphabets.lower_ordered[sum]);
+        continue;
+      } else {
+        _sb.write(String.fromCharCode(pos[i]));
+        continue;
+      }
+    }
+    String? t = _sb.toString();
+    _sb.clear();
+    return JSON(200, STATUS.OK, "text ciphered")
+        .addOptional(t.toString())
+        .build();
   }
 
   @override
   Map<String, dynamic>? vigenere(String word, String key) {
+    List<List<int>> resolved = Alphabets.stringToOrder(word);
+    List<int> order = resolved[0];
+    List<int> pos = resolved[1];
     LinkedList<int> keyList = super._key(key);
     Node<int>? ptr = keyList.head;
     List<int> parsed = List<int>.filled(word.length, 0);
-    List<int> numeric = Alphabets.toNumerics(word);
     for (int i = 0; i < word.length; ++i) {
-      if (numeric[i] == 32) continue;
+      // repeat key till word length
+      if (order[i] == 32 || order[i] == 0) continue;
       parsed[i] = ptr!.value;
       ptr = ptr.next as Node<int>?;
     }
-    for (int i = 0; i < numeric.length; ++i) {
-      if (numeric[i] == 32) {
-        _sb.write(' ');
+
+    for (int i = 0; i < order.length; ++i) {
+      int sum = pos[i] - parsed[i] % 26;
+      if (order[i] == 32) {
+        _sb.write(" ");
+        continue;
+      } else if (order[i] == 1) {
+        _sumCheck(sum, Alphabets.upper_ordered);
+        continue;
+      } else if (order[i] == 2) {
+        _sumCheck(sum, Alphabets.lower_ordered);
+        continue;
+      } else {
+        _sb.write(String.fromCharCode(pos[i]));
         continue;
       }
-      int sum = numeric[i] - parsed[i] % 26;
-      if (sum < 0) {
-        sum += 26;
-        _sb.write(Alphabets.lower_ordered[sum]);
-      } else if (sum >= 26) {
-        sum -= 26;
-        _sb.write(Alphabets.lower_ordered[sum]);
-      } else {
-        _sb.write(Alphabets.lower_ordered[sum]);
-      }
     }
-    String? cyphered = _sb.toString();
+
+    String? ciphered = _sb.toString();
     _sb.clear();
     return JSON(200, STATUS.OK, "text ciphered")
-        .addOptional(cyphered.toString())
+        .addOptional(ciphered.toString())
         .build();
+  }
+
+  void _sumCheck(int sum, List<String> arr) {
+    if (sum < 0) {
+      sum += 26;
+      _sb.write(arr[sum]);
+      return;
+    } else if (sum > 26) {
+      sum -= 26;
+      _sb.write(arr[sum]);
+      return;
+    } else {
+      _sb.write(arr[sum]);
+      return;
+    }
   }
 }

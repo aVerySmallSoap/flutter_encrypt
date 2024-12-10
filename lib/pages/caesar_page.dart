@@ -170,7 +170,7 @@ class _CaesarPageState extends State<CaesarPage> {
                             ),
                           ],
                         ),
-                        Container(
+                        SizedBox(
                           width: double.maxFinite,
                           child: FilledButton(
                             style: ButtonStyle(
@@ -196,6 +196,34 @@ class _CaesarPageState extends State<CaesarPage> {
                               }
                             },
                             child: Text("Encode"),
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: FilledButton(
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(
+                                Color.fromRGBO(243, 180, 98, 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              Map<String, dynamic>? response =
+                                  Cipher.decrypt.caesar(
+                                direction,
+                                int.parse(shifts.text),
+                                input.text,
+                              );
+                              if (response?["status"] == STATUS.OK) {
+                                setState(() {
+                                  _changeable = response?["optional"];
+                                  SessionManager.instance
+                                      .getSession("user")
+                                      ?.user
+                                      ?.addHistory(response?["optional"]);
+                                });
+                              }
+                            },
+                            child: Text("Decode"),
                           ),
                         ),
                       ],

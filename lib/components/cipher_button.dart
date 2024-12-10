@@ -19,7 +19,7 @@ class CipherButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: (MediaQuery.of(context).size.height / 3.5),
+      height: (MediaQuery.of(context).size.height / 4.5) + 24,
       width: double.maxFinite,
       padding: EdgeInsets.all(16),
       margin: EdgeInsets.only(top: 2),
