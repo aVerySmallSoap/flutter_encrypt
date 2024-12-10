@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Database.init();
     return MaterialApp(
-        title: 'TestApp',
+        title: 'Cipher Cracker',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
