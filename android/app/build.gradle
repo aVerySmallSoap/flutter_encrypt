@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "belleza.dnsc.test_app"
+    namespace = "org.dnsc.mar_co.cipher"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "25.1.8937393"
 
