@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/pages/atbash_page.dart';
-import 'package:test_app/pages/caesar_page.dart';
-import 'package:test_app/pages/home_page.dart';
-import 'package:test_app/pages/login_page.dart';
-import 'package:test_app/pages/register_page.dart';
-import 'package:test_app/pages/vigenere_page.dart';
+import 'package:test_app/UI/pages/atbash_page.dart';
+import 'package:test_app/UI/pages/caesar_page.dart';
+import 'package:test_app/UI/pages/home_page.dart';
+import 'package:test_app/UI/pages/login_page.dart';
+import 'package:test_app/UI/pages/register_page.dart';
+import 'package:test_app/UI/pages/vigenere_page.dart';
 
 import 'api/database.dart';
 

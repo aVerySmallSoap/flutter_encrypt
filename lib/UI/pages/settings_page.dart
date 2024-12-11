@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/textstyles/normal_text.dart';
+import 'package:test_app/UI/textstyles/normal_text.dart';
 
 @Deprecated("No longer supported")
 class SettingsPage extends StatelessWidget {

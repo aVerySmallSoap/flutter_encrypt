@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:test_app/pages/conversion_page.dart';
-import 'package:test_app/pages/history_page.dart';
-import '../api/sessions/session_manager.dart';
+import 'package:test_app/UI/pages/conversion_page.dart';
+import 'package:test_app/UI/pages/history_page.dart';
+import '../../api/sessions/session_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

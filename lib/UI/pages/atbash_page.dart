@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/api/sessions/session_manager.dart';
 
-import '../api/cipher.dart';
-import '../api/returnable.dart';
+import '../../api/cipher.dart';
+import '../../api/returnable.dart';
 
 class AtBashPage extends StatefulWidget {
   const AtBashPage({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/components/forms/registration_form.dart';
+import 'package:test_app/UI/components/forms/registration_form.dart';
 
-import '../api/registration.dart';
-import '../api/returnable.dart';
+import '../../api/registration.dart';
+import '../../api/returnable.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});

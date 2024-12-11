@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/components/forms/login_form.dart';
+import 'package:test_app/UI/components/forms/login_form.dart';
 
-import '../api/login.dart';
-import '../api/returnable.dart';
+import '../../api/login.dart';
+import '../../api/returnable.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});

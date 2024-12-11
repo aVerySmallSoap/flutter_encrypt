@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import '../api/cipher.dart';
-import '../api/returnable.dart';
-import '../api/sessions/session_manager.dart';
+import '../../api/cipher.dart';
+import '../../api/returnable.dart';
+import '../../api/sessions/session_manager.dart';
 
-class CaesarPage extends StatefulWidget {
-  const CaesarPage({
-    super.key,
-  });
+class VigenerePage extends StatefulWidget {
+  const VigenerePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _CaesarPageState();
+  State<StatefulWidget> createState() => _VigenerePageState();
 }
 
-class _CaesarPageState extends State<CaesarPage> {
+class _VigenerePageState extends State<VigenerePage> {
   String _changeable = "";
   TextEditingController input = TextEditingController();
-  TextEditingController shifts = TextEditingController();
-  Shift direction = Shift.right;
+  final TextEditingController _key = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +29,9 @@ class _CaesarPageState extends State<CaesarPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          constraints:
-              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -43,10 +40,10 @@ class _CaesarPageState extends State<CaesarPage> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Color.fromRGBO(243, 180, 98, 1),
-                      Color.fromRGBO(240, 200, 127, 1),
-                      Color.fromRGBO(239, 219, 158, 1),
-                      Color.fromRGBO(242, 235, 192, 1),
+                      Color.fromRGBO(141, 191, 179, 1),
+                      Color.fromRGBO(158, 181, 149, 1),
+                      Color.fromRGBO(179, 168, 136, 1),
+                      Color.fromRGBO(191, 141, 152, 1),
                     ],
                     transform: GradientRotation(240),
                   ),
@@ -69,7 +66,7 @@ class _CaesarPageState extends State<CaesarPage> {
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          "Caesar",
+                          "Vigenere",
                           style: TextStyle(
                             fontFamily: "Antipasto",
                             fontSize: 48,
@@ -82,7 +79,7 @@ class _CaesarPageState extends State<CaesarPage> {
                       Expanded(
                         child: Text(
                           _changeable,
-                          key: Key("caesar_key"),
+                          key: Key("vigenere_key"),
                           overflow: TextOverflow.fade,
                           style: TextStyle(
                             color: Colors.black,
@@ -128,63 +125,28 @@ class _CaesarPageState extends State<CaesarPage> {
                           ),
                         ),
                         Container(
+                          padding: EdgeInsets.only(bottom: 18),
                           child: TextField(
-                            controller: shifts,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
+                            controller: _key,
                             decoration: InputDecoration(
-                              labelText: "Shifts",
+                              labelText: "Key",
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
                               ),
                             ),
                           ),
                         ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: RadioListTile<Shift>(
-                                title: const Text("Left"),
-                                value: Shift.left,
-                                groupValue: direction,
-                                onChanged: (Shift? val) {
-                                  setState(() {
-                                    direction = val!;
-                                  });
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: RadioListTile<Shift>(
-                                title: const Text("Right"),
-                                value: Shift.right,
-                                groupValue: direction,
-                                onChanged: (Shift? val) {
-                                  setState(() {
-                                    direction = val!;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
                         SizedBox(
                           width: double.maxFinite,
                           child: FilledButton(
                             style: ButtonStyle(
                               backgroundColor: WidgetStatePropertyAll(
-                                Color.fromRGBO(243, 180, 98, 1),
+                                Color.fromRGBO(141, 191, 179, 1),
                               ),
                             ),
                             onPressed: () {
-                              Map<String, dynamic>? response =
-                                  Cipher.encrypt.caesar(
-                                direction,
-                                int.parse(shifts.text),
-                                input.text,
-                              );
+                              Map<String, dynamic>? response = Cipher.encrypt
+                                  .vigenere(input.text, _key.text);
                               if (response?["status"] == STATUS.OK) {
                                 setState(() {
                                   _changeable = response?["optional"];
@@ -203,16 +165,12 @@ class _CaesarPageState extends State<CaesarPage> {
                           child: FilledButton(
                             style: ButtonStyle(
                               backgroundColor: WidgetStatePropertyAll(
-                                Color.fromRGBO(243, 180, 98, 1),
+                                Color.fromRGBO(141, 191, 179, 1),
                               ),
                             ),
                             onPressed: () {
-                              Map<String, dynamic>? response =
-                                  Cipher.decrypt.caesar(
-                                direction,
-                                int.parse(shifts.text),
-                                input.text,
-                              );
+                              Map<String, dynamic>? response = Cipher.decrypt
+                                  .vigenere(input.text, _key.text);
                               if (response?["status"] == STATUS.OK) {
                                 setState(() {
                                   _changeable = response?["optional"];

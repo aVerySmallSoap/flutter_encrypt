@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/api/sessions/session_manager.dart';
-
-import '../api/user.dart';
+import 'package:test_app/api/user.dart';
 
 class HistoryList extends StatefulWidget {
   const HistoryList({super.key});

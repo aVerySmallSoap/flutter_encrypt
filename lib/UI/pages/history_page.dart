@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:test_app/components/historylist.dart';
+import 'package:test_app/UI/components/historylist.dart';
 
-import '../api/login.dart';
+import '../../api/login.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -97,5 +97,6 @@ class _HistoryPageState extends State<HistoryPage> {
           ],
         ),
       ),
-    );  }
+    );
+  }
 }
