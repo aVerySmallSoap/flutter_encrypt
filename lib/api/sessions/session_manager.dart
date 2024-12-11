@@ -1,6 +1,5 @@
 import 'package:test_app/api/sessions/session.dart';
-
-import '../user.dart';
+import 'package:test_app/api/user.dart';
 
 class SessionManager {
   SessionManager._();
